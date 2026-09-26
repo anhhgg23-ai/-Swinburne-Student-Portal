@@ -1,1 +1,1 @@
-# -Swinburne-Student-Portal
+Academic project. Demo login: SWH00779 / Swinburne@2026. Deploy the folder to a static host; replace YOUR-DOMAIN.example in sitemap/robots.txt and submit sitemap in Google Search Console.
