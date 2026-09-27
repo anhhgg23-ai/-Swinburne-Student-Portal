@@ -1,1 +1,366 @@
-if(!localStorage.auth)location='login.html';function draw(){let q=(document.getElementById('q')?.value||'').toLowerCase(),t=document.getElementById('t');if(!t)return;t.innerHTML='<tr><th>Code</th><th>Unit</th><th>Mark</th><th>Grade</th><th>GPA</th></tr>'+R.filter(x=>(x[0]+x[1]).toLowerCase().includes(q)).map(x=>'<tr>'+x.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('')}function send(){let a=JSON.parse(localStorage.tickets||'[]');a.unshift({s:sub.value,m:msg.value,d:new Date().toLocaleString()});localStorage.tickets=JSON.stringify(a);show()}function show(){let a=JSON.parse(localStorage.tickets||'[]');let e=document.getElementById('tickets');if(e)e.innerHTML=a.map(x=>'<div class="panel"><b>'+x.s+'</b><p>'+x.m+'</p><small>'+x.d+' · Open</small></div>').join('')}draw();show();
+/* =========================================================
+   SWINBURNE STUDENT PORTAL
+   GLOBAL APP SCRIPT
+   ========================================================= */
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+if (!localStorage.auth) {
+  location = "login.html";
+}
+
+/* =========================================================
+   ACADEMIC RESULTS SEARCH
+   ========================================================= */
+
+function draw() {
+  const q =
+    (document.getElementById("q")?.value || "")
+      .toLowerCase()
+      .trim();
+
+  const t = document.getElementById("t");
+
+  if (!t || typeof R === "undefined") {
+    return;
+  }
+
+  const rows = R.filter((x) =>
+    (x[0] + x[1]).toLowerCase().includes(q)
+  );
+
+  t.innerHTML =
+    "<tr>" +
+      "<th>Code</th>" +
+      "<th>Unit</th>" +
+      "<th>Mark</th>" +
+      "<th>Grade</th>" +
+      "<th>GPA</th>" +
+    "</tr>" +
+
+    rows
+      .map(
+        (x) =>
+          "<tr>" +
+          x.map((v) => `<td>${v}</td>`).join("") +
+          "</tr>"
+      )
+      .join("");
+}
+
+/* =========================================================
+   SUPPORT / QUERIES
+   ========================================================= */
+
+function send() {
+  const subject = document.getElementById("sub");
+  const message = document.getElementById("msg");
+
+  if (!subject || !message) {
+    return;
+  }
+
+  const tickets =
+    JSON.parse(localStorage.tickets || "[]");
+
+  tickets.unshift({
+    s: subject.value,
+    m: message.value,
+    d: new Date().toLocaleString()
+  });
+
+  localStorage.tickets =
+    JSON.stringify(tickets);
+
+  subject.value = "";
+  message.value = "";
+
+  show();
+}
+
+function show() {
+  const tickets =
+    JSON.parse(localStorage.tickets || "[]");
+
+  const element =
+    document.getElementById("tickets");
+
+  if (!element) {
+    return;
+  }
+
+  element.innerHTML = tickets
+    .map(
+      (x) =>
+        `
+        <div class="panel">
+          <b>${x.s}</b>
+          <p>${x.m}</p>
+          <small>${x.d} · Open</small>
+        </div>
+        `
+    )
+    .join("");
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+function createPortalFooter() {
+  /* Avoid creating the footer twice */
+  if (document.querySelector(".portal-footer")) {
+    return;
+  }
+
+  /* Only show footer on application pages */
+  if (!document.body.classList.contains("app")) {
+    return;
+  }
+
+  const footer = document.createElement("footer");
+
+  footer.className = "portal-footer";
+
+  footer.innerHTML = `
+    <div class="portal-footer-inner">
+
+      <!-- TOP -->
+      <div class="portal-footer-top">
+
+        <div class="portal-footer-brand">
+
+          <img
+            class="portal-footer-logo"
+            src="./swinburne-sidebar-final.png"
+            alt="Swinburne University of Technology"
+          >
+
+          <h3>
+            Swinburne Vietnam
+          </h3>
+
+          <p>
+            Swinburne University of Technology
+            — Vietnam Alliance Program
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Swinburne Vietnam
+          </h4>
+
+          <a
+            href="https://swinburne-vn.edu.vn/"
+            target="_blank"
+            rel="noopener"
+          >
+            Giới thiệu
+          </a>
+
+          <a
+            href="https://swinburne-vn.edu.vn/research/"
+            target="_blank"
+            rel="noopener"
+          >
+            Nghiên cứu
+          </a>
+
+          <a
+            href="https://swinburne-vn.edu.vn/student/"
+            target="_blank"
+            rel="noopener"
+          >
+            Sinh viên
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Tuyển sinh
+          </h4>
+
+          <a
+            href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
+            target="_blank"
+            rel="noopener"
+          >
+            Tuyển sinh 2026
+          </a>
+
+          <a
+            href="https://swinburne-vn.edu.vn/list-admission/"
+            target="_blank"
+            rel="noopener"
+          >
+            Thủ tục tuyển sinh
+          </a>
+
+          <a
+            href="https://swinburne-vn.edu.vn/course/"
+            target="_blank"
+            rel="noopener"
+          >
+            Chương trình đào tạo
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <h4>
+            Sinh viên Swinburne
+          </h4>
+
+          <a href="dashboard.html">
+            Student Portal
+          </a>
+
+          <a href="results.html">
+            Academic Results
+          </a>
+
+          <a href="graduation.html">
+            Graduation
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- CAMPUS -->
+      <div class="portal-footer-campus">
+
+        <div class="portal-footer-campus-title">
+          Liên hệ với Swinburne Vietnam Alliance Program
+        </div>
+
+
+        <div class="portal-footer-campus-grid">
+
+          <div>
+
+            <h4>
+              Cơ sở Hà Nội
+            </h4>
+
+            <p>
+              Số 80 Duy Tân,
+              Phường Cầu Giấy,
+              TP. Hà Nội
+            </p>
+
+            <p>
+              0939 403 555
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h4>
+              Cơ sở Đà Nẵng
+            </h4>
+
+            <p>
+              Lô 1+2-A14-16
+              Khu Công Viên Bắc đài tưởng niệm,
+              đường 2 tháng 9,
+              Phường Hòa Cường,
+              Đà Nẵng
+            </p>
+
+            <p>
+              0798 210 555
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h4>
+              Cơ sở HCM
+            </h4>
+
+            <p>
+              A35 Bạch Đằng,
+              Phường Tân Sơn Hòa,
+              TP. Hồ Chí Minh
+            </p>
+
+            <p>
+              0387 148 555
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h4>
+              Cơ sở Cần Thơ
+            </h4>
+
+            <p>
+              Số 600 Nguyễn Văn Cừ,
+              Phường An Bình,
+              TP. Cần Thơ
+            </p>
+
+            <p>
+              0348 766 555
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BOTTOM -->
+      <div class="portal-footer-bottom">
+
+        <span>
+          © 2026 Swinburne Vietnam Alliance Program
+        </span>
+
+        <span>
+          Swinburne University of Technology
+        </span>
+
+      </div>
+
+    </div>
+  `;
+
+  /*
+    Insert at the very end of the document,
+    after the page content.
+  */
+  document.body.appendChild(footer);
+}
+
+
+/* =========================================================
+   INITIALISE
+   ========================================================= */
+
+draw();
+
+show();
+
+createPortalFooter();
