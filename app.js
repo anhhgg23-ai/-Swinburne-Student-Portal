@@ -3,6 +3,7 @@
    GLOBAL APP SCRIPT
    ========================================================= */
 
+
 /* =========================================================
    AUTH
    ========================================================= */
@@ -11,11 +12,13 @@ if (!localStorage.auth) {
   location = "login.html";
 }
 
+
 /* =========================================================
    ACADEMIC RESULTS SEARCH
    ========================================================= */
 
 function draw() {
+
   const q =
     (document.getElementById("q")?.value || "")
       .toLowerCase()
@@ -40,23 +43,25 @@ function draw() {
       "<th>GPA</th>" +
     "</tr>" +
 
-    rows
-      .map(
-        (x) =>
-          "<tr>" +
-          x.map((v) => `<td>${v}</td>`).join("") +
-          "</tr>"
-      )
-      .join("");
+    rows.map((x) =>
+      "<tr>" +
+      x.map((v) => `<td>${v}</td>`).join("") +
+      "</tr>"
+    ).join("");
 }
+
 
 /* =========================================================
    SUPPORT / QUERIES
    ========================================================= */
 
 function send() {
-  const subject = document.getElementById("sub");
-  const message = document.getElementById("msg");
+
+  const subject =
+    document.getElementById("sub");
+
+  const message =
+    document.getElementById("msg");
 
   if (!subject || !message) {
     return;
@@ -80,7 +85,9 @@ function send() {
   show();
 }
 
+
 function show() {
+
   const tickets =
     JSON.parse(localStorage.tickets || "[]");
 
@@ -91,43 +98,57 @@ function show() {
     return;
   }
 
-  element.innerHTML = tickets
-    .map(
-      (x) =>
-        `
-        <div class="panel">
-          <b>${x.s}</b>
-          <p>${x.m}</p>
-          <small>${x.d} · Open</small>
-        </div>
-        `
-    )
-    .join("");
+  element.innerHTML =
+    tickets.map((x) => `
+      <div class="panel">
+        <b>${x.s}</b>
+        <p>${x.m}</p>
+        <small>${x.d} · Open</small>
+      </div>
+    `).join("");
 }
 
+
 /* =========================================================
-   FOOTER
+   REMOVE OLD ACADEMIC PROJECT FOOTER
+   ========================================================= */
+
+function removeOldFooter() {
+
+  document
+    .querySelectorAll("body footer:not(.portal-footer)")
+    .forEach((footer) => {
+      footer.remove();
+    });
+}
+
+
+/* =========================================================
+   PORTAL FOOTER
    ========================================================= */
 
 function createPortalFooter() {
-  /* Avoid creating the footer twice */
-  if (document.querySelector(".portal-footer")) {
-    return;
-  }
 
-  /* Only show footer on application pages */
   if (!document.body.classList.contains("app")) {
     return;
   }
 
-  const footer = document.createElement("footer");
+  removeOldFooter();
 
-  footer.className = "portal-footer";
+  if (document.querySelector(".portal-footer")) {
+    return;
+  }
+
+  const footer =
+    document.createElement("footer");
+
+  footer.className =
+    "portal-footer";
 
   footer.innerHTML = `
+
     <div class="portal-footer-inner">
 
-      <!-- TOP -->
       <div class="portal-footer-top">
 
         <div class="portal-footer-brand">
@@ -147,6 +168,10 @@ function createPortalFooter() {
             — Vietnam Alliance Program
           </p>
 
+          <p>
+            Alliance with FPT Education
+          </p>
+
         </div>
 
 
@@ -157,7 +182,7 @@ function createPortalFooter() {
           </h4>
 
           <a
-            href="https://swinburne-vn.edu.vn/"
+            href={"https://" + "swinburne-vn.edu.vn/"}
             target="_blank"
             rel="noopener"
           >
@@ -165,19 +190,19 @@ function createPortalFooter() {
           </a>
 
           <a
-            href="https://swinburne-vn.edu.vn/research/"
-            target="_blank"
-            rel="noopener"
-          >
-            Nghiên cứu
-          </a>
-
-          <a
-            href="https://swinburne-vn.edu.vn/student/"
+            href={"https://" + "swinburne-vn.edu.vn/sinh-vien-hien-tai/"}
             target="_blank"
             rel="noopener"
           >
             Sinh viên
+          </a>
+
+          <a
+            href={"https://" + "swinburne-vn.edu.vn/"}
+            target="_blank"
+            rel="noopener"
+          >
+            Nghiên cứu
           </a>
 
         </div>
@@ -190,7 +215,7 @@ function createPortalFooter() {
           </h4>
 
           <a
-            href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
+            href={"https://" + "swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"}
             target="_blank"
             rel="noopener"
           >
@@ -198,7 +223,7 @@ function createPortalFooter() {
           </a>
 
           <a
-            href="https://swinburne-vn.edu.vn/list-admission/"
+            href={"https://" + "swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"}
             target="_blank"
             rel="noopener"
           >
@@ -206,7 +231,7 @@ function createPortalFooter() {
           </a>
 
           <a
-            href="https://swinburne-vn.edu.vn/course/"
+            href={"https://" + "swinburne-vn.edu.vn/course/quan-tri-kinh-doanh/"}
             target="_blank"
             rel="noopener"
           >
@@ -239,7 +264,6 @@ function createPortalFooter() {
       </div>
 
 
-      <!-- CAMPUS -->
       <div class="portal-footer-campus">
 
         <div class="portal-footer-campus-title">
@@ -331,7 +355,6 @@ function createPortalFooter() {
       </div>
 
 
-      <!-- BOTTOM -->
       <div class="portal-footer-bottom">
 
         <span>
@@ -347,10 +370,6 @@ function createPortalFooter() {
     </div>
   `;
 
-  /*
-    Insert at the very end of the document,
-    after the page content.
-  */
   document.body.appendChild(footer);
 }
 
