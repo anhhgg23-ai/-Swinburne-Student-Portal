@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Dashboard — Student Portal Project</title>
 
 <link rel="stylesheet" href="styles.css">
@@ -12,6 +13,7 @@
 <body class="app">
 
 <aside>
+
 <b>SWINBURNE</b>
 <small>S</small>
 
@@ -27,11 +29,14 @@
 <button onclick="localStorage.clear();location='login.html'">
 Log out
 </button>
+
 </aside>
+
 
 <article>
 
 <h1>Dashboard</h1>
+
 
 <div class="cards">
 
@@ -56,6 +61,7 @@ Fee balance
 </div>
 
 </div>
+
 
 <div class="panel">
 
@@ -82,6 +88,7 @@ Classification:
 
 </div>
 
+
 <div class="panel">
 
 <h2>Latest Academic Results</h2>
@@ -90,13 +97,12 @@ Classification:
 
 </div>
 
-<footer>
-Academic Project · Not an official university system.
-</footer>
 
 </article>
 
+
 <script src="data.js"></script>
+
 
 <script>
 
@@ -118,8 +124,10 @@ S.id;
 document.getElementById('classification').textContent =
 S.classification;
 
+
 const latest =
 R.slice(-3).reverse();
+
 
 document.getElementById('latestResults').innerHTML =
 latest.map(row => `
@@ -132,6 +140,10 @@ latest.map(row => `
 `).join('');
 
 </script>
+
+
+<!-- GLOBAL PORTAL SCRIPT -->
+<script src="app.js"></script>
 
 </body>
 </html>
