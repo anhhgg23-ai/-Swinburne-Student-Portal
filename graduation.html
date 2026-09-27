@@ -1,9 +1,10 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Graduation — Student Portal Project</title>
+
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="app.css">
 </head>
@@ -13,6 +14,7 @@
 <aside>
 <b>SWINBURNE</b>
 <small>S</small>
+
 <a href="dashboard.html">Dashboard</a>
 <a href="results.html">Academic Results</a>
 <a href="courses.html">Courses</a>
@@ -21,7 +23,10 @@
 <a href="fees.html">Fees & Payments</a>
 <a href="profile.html">Student Profile</a>
 <a href="support.html">Support / Queries</a>
-<button onclick="localStorage.clear();location='login.html'">Log out</button>
+
+<button onclick="localStorage.clear();location='login.html'">
+Log out
+</button>
 </aside>
 
 <article>
@@ -29,16 +34,47 @@
 <h1>Graduation</h1>
 
 <div class="panel">
-<h2>100% complete</h2>
+
+<h2 id="graduationStatus">—</h2>
 
 <div class="bar">
-<i style="width:100%"></i>
+<i id="progressBar"></i>
 </div>
 
-<p>✓ Academic credits — 32 / 32</p>
-<p>✓ Core business units — 6 / 6</p>
-<p>✓ Capstone — Completed</p>
-<p>✓ English / entry requirement — Satisfied</p>
+<p>
+<strong>Graduation Status:</strong>
+<span id="status">—</span>
+</p>
+
+<p>
+<strong>Award:</strong>
+<span id="award">—</span>
+</p>
+
+<p>
+<strong>Classification:</strong>
+<span id="classification">—</span>
+</p>
+
+<p>
+<strong>GPA:</strong>
+<span id="gpa">—</span> / 4.00
+</p>
+
+<p>
+<strong>Credits Completed:</strong>
+<span id="credits">—</span>
+</p>
+
+<p>
+<strong>Units Completed:</strong>
+<span id="units">—</span>
+</p>
+
+<p>
+<strong>Program Progress:</strong>
+<span id="progress">—</span>
+</p>
 
 </div>
 
@@ -49,7 +85,37 @@ Academic Project · Not an official university system.
 </article>
 
 <script src="data.js"></script>
-<script src="app.js"></script>
+
+<script>
+
+document.getElementById('graduationStatus').textContent =
+S.progress + '% complete';
+
+document.getElementById('progressBar').style.width =
+S.progress + '%';
+
+document.getElementById('status').textContent =
+S.graduationStatus;
+
+document.getElementById('award').textContent =
+S.award;
+
+document.getElementById('classification').textContent =
+S.classification;
+
+document.getElementById('gpa').textContent =
+CALCULATED_GPA.toFixed(2);
+
+document.getElementById('credits').textContent =
+TOTAL_CREDITS + ' / ' + S.totalCredits + ' CP';
+
+document.getElementById('units').textContent =
+R.length + ' / ' + R.length;
+
+document.getElementById('progress').textContent =
+S.progress + '%';
+
+</script>
 
 </body>
 </html>
