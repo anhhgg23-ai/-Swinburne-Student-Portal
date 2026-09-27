@@ -1,586 +1,593 @@
 /* =========================================================
-   SWINBURNE STUDENT PORTAL — PROFESSIONAL V2
-   GLOBAL UI + PAGE SYSTEM
+   SWINBURNE STUDENT PORTAL
+   PROFESSIONAL V2 — FIXED GLOBAL APP
    ========================================================= */
 
-if (!localStorage.auth) {
-  location = "login.html";
-}
-
-
-/* =========================================================
-   CURRENT PAGE
-   ========================================================= */
-
-const page =
-  location.pathname.split("/").pop() ||
-  "dashboard.html";
-
-
-/* =========================================================
-   ICONS
-   ========================================================= */
-
-const icons = {
-
-  dashboard: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <rect x="3" y="3" width="7" height="7" rx="1"/>
-      <rect x="14" y="3" width="7" height="7" rx="1"/>
-      <rect x="3" y="14" width="7" height="7" rx="1"/>
-      <rect x="14" y="14" width="7" height="7" rx="1"/>
-    </svg>
-  `,
-
-  results: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <path d="M6 3h9l3 3v15H6z"/>
-      <path d="M15 3v4h4"/>
-      <path d="M9 12h6"/>
-      <path d="M9 16h6"/>
-    </svg>
-  `,
-
-  courses: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/>
-      <path d="M4 5.5v15"/>
-      <path d="M8 7h8"/>
-      <path d="M8 11h8"/>
-    </svg>
-  `,
-
-  timetable: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <rect x="3" y="4" width="18" height="17" rx="2"/>
-      <path d="M7 2v4"/>
-      <path d="M17 2v4"/>
-      <path d="M3 9h18"/>
-      <path d="M8 13h3"/>
-      <path d="M13 13h3"/>
-      <path d="M8 17h3"/>
-    </svg>
-  `,
-
-  graduation: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <path d="m3 9 9-5 9 5-9 5z"/>
-      <path d="M7 11v5c2 2 8 2 10 0v-5"/>
-      <path d="M21 9v7"/>
-    </svg>
-  `,
-
-  fees: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <rect x="3" y="5" width="18" height="14" rx="2"/>
-      <path d="M3 10h18"/>
-      <path d="M7 15h4"/>
-    </svg>
-  `,
-
-  profile: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <circle cx="12" cy="8" r="3"/>
-      <path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"/>
-    </svg>
-  `,
-
-  support: `
-    <svg viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" stroke-width="1.8">
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M9.5 9a2.7 2.7 0 1 1 4.7 1.8c-1.3 1.2-2.2 1.5-2.2 3.2"/>
-      <path d="M12 17h.01"/>
-    </svg>
-  `
-};
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-const nav = [
-
-  [
-    "dashboard.html",
-    "Dashboard",
-    "dashboard"
-  ],
-
-  [
-    "results.html",
-    "Academic Results",
-    "results"
-  ],
-
-  [
-    "courses.html",
-    "Courses",
-    "courses"
-  ],
-
-  [
-    "timetable.html",
-    "Timetable",
-    "timetable"
-  ],
-
-  [
-    "graduation.html",
-    "Graduation",
-    "graduation"
-  ],
-
-  [
-    "fees.html",
-    "Fees & Payments",
-    "fees"
-  ],
-
-  [
-    "profile.html",
-    "Student Profile",
-    "profile"
-  ],
-
-  [
-    "support.html",
-    "Support / Queries",
-    "support"
-  ]
-
-];
-
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-function initials(name) {
-
-  return (name || "NA")
-    .split(/\s+/)
-    .slice(-2)
-    .map(x => x[0])
-    .join("")
-    .toUpperCase();
-
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-function createSidebar() {
-
-  const old =
-    document.querySelector(
-      "body.app > aside"
-    );
-
-  if (old) {
-    old.remove();
-  }
-
-
-  const aside =
-    document.createElement("aside");
-
-  aside.className =
-    "portal-sidebar";
-
-
-  aside.innerHTML = `
-
-    <div class="portal-brand">
-
-      <img
-        src="./swinburne-sidebar-final.png"
-        alt="Swinburne University of Technology"
-      >
-
-    </div>
-
-
-    <div class="portal-section-label">
-      Overview
-    </div>
-
-
-    <nav class="portal-nav">
-
-      ${nav
-        .slice(0, 1)
-        .map(item => createNavLink(item))
-        .join("")}
-
-    </nav>
-
-
-    <div class="portal-section-label">
-      Academics
-    </div>
-
-
-    <nav class="portal-nav">
-
-      ${nav
-        .slice(1, 5)
-        .map(item => createNavLink(item))
-        .join("")}
-
-    </nav>
-
-
-    <div class="portal-section-label">
-      Account
-    </div>
-
-
-    <nav class="portal-nav">
-
-      ${nav
-        .slice(5)
-        .map(item => createNavLink(item))
-        .join("")}
-
-    </nav>
-
-
-    <div class="portal-user">
-
-      <div class="portal-user-name">
-        ${S.name}
-      </div>
-
-      <div class="portal-user-id">
-        ${S.id} · Bachelor of Business
-      </div>
-
-
-      <button
-        class="portal-logout"
-        onclick="localStorage.clear();location='login.html'"
-      >
-        Log out
-      </button>
-
-    </div>
-
-  `;
-
-
-  document.body.prepend(aside);
-
-}
-
-
-/* =========================================================
-   NAV LINK
-   ========================================================= */
-
-function createNavLink(item) {
-
-  const file =
-    item[0];
-
-  const label =
-    item[1];
-
-  const icon =
-    item[2];
-
-
-  return `
-
-    <a
-      class="${page === file ? "active" : ""}"
-      href="${file}"
-    >
-
-      ${icons[icon]}
-
-      <span>
-        ${label}
-      </span>
-
-    </a>
-
-  `;
-
-}
-
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
-
-function createTopbar(
-  title,
-  subtitle
-) {
-
-  const article =
-    document.querySelector(
-      "body.app > article"
-    );
-
-  if (!article) {
+(function () {
+  "use strict";
+
+  /* =======================================================
+     AUTH
+     ======================================================= */
+
+  if (!localStorage.auth) {
+    location.href = "login.html";
     return;
   }
 
+  /* =======================================================
+     DATA
+     ======================================================= */
 
-  const old =
-    article.querySelector(
-      ".portal-topbar"
-    );
+  const STUDENT = window.S || {
+    id: "SWH00779",
+    name: "Nguyễn Xuân An",
+    gpa: 3.71,
+    credits: 300,
+    totalCredits: 300,
+    progress: 100,
+    graduationStatus: "Completed",
+    award: "Bachelor of Business",
+    classification: "Excellent"
+  };
 
-  if (old) {
-    old.remove();
+  const RESULTS = Array.isArray(window.R)
+    ? window.R
+    : [
+        ["ECO10005","Economics for Business Decision Making","82","HD","4"],
+        ["ACC10007","Financial Information for Decision Making","76","D","3"],
+        ["MGT10009","Contemporary Management Principles","81","HD","4"],
+        ["MKT10009","Marketing and the Consumer Experience","74","D","3"],
+        ["BUS10015","Creative Mindset and Entrepreneurship","84","HD","4"],
+        ["INF10024","Business Digitalisation","83","HD","4"],
+        ["BUS30031","Sustainable Business Practice","78","D","3"],
+        ["BUS30032","Business Consulting Project","86","HD","4"],
+        ["BUS10014","Business for Sustainability, Social Change and Impact","82","HD","4"],
+        ["HRM20017","Managing Workplace Relations","81","HD","4"],
+        ["MGT20007","Organisational Behaviour","77","D","3"],
+        ["INF20016","Big Data Management","85","HD","4"],
+        ["LAW20019","Law of Commerce","80","HD","4"],
+        ["INF30015","Knowledge Management and Analytics","84","HD","4"],
+        ["MGT30005","Strategic Planning","75","D","3"],
+        ["PRM30001","Project Management Essentials","88","HD","4"],
+        ["BUS20013","Business Professional Internship","86","HD","4"],
+        ["HRM30012","Digital Management and the Future of Work","82","HD","4"],
+        ["INB10002","International Business Operations","79","D","3"],
+        ["SCM20003","Global Logistics and Supply Chain Management","83","HD","4"],
+        ["MKT20019","Marketing Research and Analytics","85","HD","4"],
+        ["STA10003","Foundation of Statistics","76","D","3"],
+        ["MDA10012","Communicating with Data","81","HD","4"],
+        ["MKT30016","Marketing Strategy and Planning","87","HD","4"]
+      ];
+
+  const UNIT_CREDIT = 12.5;
+  const TOTAL_CREDITS = RESULTS.length * UNIT_CREDIT;
+
+  const GRADE_POINTS = RESULTS.reduce(
+    (sum, row) => sum + UNIT_CREDIT * Number(row[4]),
+    0
+  );
+
+  const GPA = GRADE_POINTS / TOTAL_CREDITS;
+
+  const page =
+    location.pathname.split("/").pop() || "dashboard.html";
+
+
+  /* =======================================================
+     ICONS
+     ======================================================= */
+
+  const icons = {
+
+    dashboard: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    `,
+
+    results: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <path d="M6 3h9l3 3v15H6z"/>
+        <path d="M15 3v4h4"/>
+        <path d="M9 12h6"/>
+        <path d="M9 16h6"/>
+      </svg>
+    `,
+
+    courses: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/>
+        <path d="M4 5.5v15"/>
+        <path d="M8 7h8"/>
+        <path d="M8 11h8"/>
+      </svg>
+    `,
+
+    timetable: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="4" width="18" height="17" rx="2"/>
+        <path d="M7 2v4"/>
+        <path d="M17 2v4"/>
+        <path d="M3 9h18"/>
+        <path d="M8 13h3"/>
+        <path d="M13 13h3"/>
+        <path d="M8 17h3"/>
+      </svg>
+    `,
+
+    graduation: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <path d="m3 9 9-5 9 5-9 5z"/>
+        <path d="M7 11v5c2 2 8 2 10 0v-5"/>
+        <path d="M21 9v7"/>
+      </svg>
+    `,
+
+    fees: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <path d="M3 10h18"/>
+        <path d="M7 15h4"/>
+      </svg>
+    `,
+
+    profile: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="8" r="3"/>
+        <path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"/>
+      </svg>
+    `,
+
+    support: `
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M9.5 9a2.7 2.7 0 1 1 4.7 1.8c-1.3 1.2-2.2 1.5-2.2 3.2"/>
+        <path d="M12 17h.01"/>
+      </svg>
+    `
+
+  };
+
+
+  /* =======================================================
+     NAVIGATION
+     ======================================================= */
+
+  const navigation = [
+    ["dashboard.html", "Dashboard", "dashboard"],
+    ["results.html", "Academic Results", "results"],
+    ["courses.html", "Courses", "courses"],
+    ["timetable.html", "Timetable", "timetable"],
+    ["graduation.html", "Graduation", "graduation"],
+    ["fees.html", "Fees & Payments", "fees"],
+    ["profile.html", "Student Profile", "profile"],
+    ["support.html", "Support / Queries", "support"]
+  ];
+
+
+  /* =======================================================
+     HELPERS
+     ======================================================= */
+
+  function initials(name) {
+    return String(name || "NA")
+      .trim()
+      .split(/\s+/)
+      .slice(-2)
+      .map(word => word.charAt(0))
+      .join("")
+      .toUpperCase();
   }
 
 
-  const bar =
-    document.createElement("div");
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-  bar.className =
-    "portal-topbar";
 
+  function currentContent() {
 
-  const today =
-    new Date().toLocaleDateString(
-      "en-GB",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric"
+    let content =
+      document.querySelector(".portal-content");
+
+    if (!content) {
+
+      const main =
+        document.querySelector(".portal-main") ||
+        document.querySelector("main");
+
+      if (main) {
+
+        content =
+          main.querySelector("article") ||
+          document.createElement("article");
+
+        content.className =
+          "portal-content";
+
+        if (!content.parentElement) {
+          main.appendChild(content);
+        }
+
+      } else {
+
+        const main =
+          document.createElement("main");
+
+        main.className =
+          "portal-main";
+
+        content =
+          document.createElement("article");
+
+        content.className =
+          "portal-content";
+
+        main.appendChild(content);
+
+        document.body.appendChild(main);
       }
-    );
+    }
 
-
-  bar.innerHTML = `
-
-    <div>
-
-      <div class="portal-eyebrow">
-        SWINBURNE VIETNAM · STUDENT PORTAL
-      </div>
-
-      <h1 class="portal-title">
-        ${title}
-      </h1>
-
-      <p class="portal-subtitle">
-        ${subtitle || ""}
-      </p>
-
-    </div>
-
-
-    <div class="portal-top-actions">
-
-      <div class="portal-date">
-        ${today}
-      </div>
-
-      <div class="portal-avatar">
-        ${initials(S.name)}
-      </div>
-
-    </div>
-
-  `;
-
-
-  article.prepend(bar);
-
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-function createFooter() {
-
-  document
-    .querySelectorAll(
-      "body footer:not(.portal-footer)"
-    )
-    .forEach(
-      footer => footer.remove()
-    );
-
-
-  if (
-    document.querySelector(
-      ".portal-footer"
-    )
-  ) {
-    return;
+    return content;
   }
 
 
-  const footer =
-    document.createElement("footer");
+  /* =======================================================
+     NORMALISE PAGE STRUCTURE
+     ======================================================= */
 
-  footer.className =
-    "portal-footer";
+  function prepareLayout() {
+
+    document.body.classList.add("app");
+
+    /*
+      Remove old sidebar generated by previous versions.
+    */
+
+    document
+      .querySelectorAll("body > aside")
+      .forEach(el => el.remove());
+
+    /*
+      Remove old static footer.
+    */
+
+    document
+      .querySelectorAll(
+        "body > footer:not(.portal-footer)"
+      )
+      .forEach(el => el.remove());
+
+    /*
+      Make sure the main content uses V2 structure.
+    */
+
+    let main =
+      document.querySelector(".portal-main");
+
+    if (!main) {
+
+      const oldMain =
+        document.querySelector("main");
+
+      if (oldMain) {
+
+        main = oldMain;
+
+        main.classList.add(
+          "portal-main"
+        );
+
+      } else {
+
+        main =
+          document.createElement("main");
+
+        main.className =
+          "portal-main";
+
+        document.body.appendChild(main);
+      }
+    }
+
+    let content =
+      main.querySelector(".portal-content");
+
+    if (!content) {
+
+      const oldArticle =
+        main.querySelector("article");
+
+      if (oldArticle) {
+
+        content = oldArticle;
+
+        content.className =
+          "portal-content";
+
+      } else {
+
+        content =
+          document.createElement("article");
+
+        content.className =
+          "portal-content";
+
+        main.appendChild(content);
+      }
+    }
+
+    /*
+      Important:
+      clear old static HTML so V2 JS controls the page.
+    */
+
+    content.innerHTML = "";
+
+    return content;
+  }
 
 
-  footer.innerHTML = `
+  /* =======================================================
+     SIDEBAR
+     ======================================================= */
 
-    <div class="portal-footer-inner">
+  function createSidebar() {
 
+    const aside =
+      document.createElement("aside");
 
-      <div class="portal-footer-top">
+    aside.className =
+      "portal-sidebar";
 
+    const overview =
+      navigation.slice(0, 1);
 
-        <div class="portal-footer-brand">
+    const academics =
+      navigation.slice(1, 5);
 
-          <img
-            class="portal-footer-logo"
-            src="./swinburne-sidebar-final.png"
-            alt="Swinburne University of Technology"
-          >
+    const account =
+      navigation.slice(5);
 
-          <h3>
-            Swinburne Vietnam
-          </h3>
+    function links(items) {
 
-          <p>
-            Swinburne University of Technology
-            — Vietnam Alliance Program
-          </p>
+      return items.map(item => {
 
-          <p>
-            Alliance with FPT Education
-          </p>
+        const active =
+          page === item[0]
+            ? "active"
+            : "";
 
-        </div>
-
-
-        <div>
-
-          <h4>
-            Swinburne Vietnam
-          </h4>
-
+        return `
           <a
-            href="https://swinburne-vn.edu.vn/"
-            target="_blank"
-            rel="noopener"
+            class="${active}"
+            href="${item[0]}"
           >
-            Giới thiệu
+            ${icons[item[2]]}
+            <span>${item[1]}</span>
           </a>
+        `;
 
-          <a
-            href="https://swinburne-vn.edu.vn/sinh-vien-hien-tai/"
-            target="_blank"
-            rel="noopener"
-          >
-            Sinh viên
-          </a>
-
-          <a
-            href="https://swinburne-vn.edu.vn/"
-            target="_blank"
-            rel="noopener"
-          >
-            Nghiên cứu
-          </a>
-
-        </div>
+      }).join("");
+    }
 
 
-        <div>
+    aside.innerHTML = `
 
-          <h4>
-            Tuyển sinh
-          </h4>
+      <div class="portal-brand">
 
-          <a
-            href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
-            target="_blank"
-            rel="noopener"
-          >
-            Tuyển sinh 2026
-          </a>
-
-          <a
-            href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
-            target="_blank"
-            rel="noopener"
-          >
-            Thủ tục tuyển sinh
-          </a>
-
-          <a
-            href="https://swinburne-vn.edu.vn/course/quan-tri-kinh-doanh/"
-            target="_blank"
-            rel="noopener"
-          >
-            Chương trình đào tạo
-          </a>
-
-        </div>
-
-
-        <div>
-
-          <h4>
-            Sinh viên Swinburne
-          </h4>
-
-          <a href="dashboard.html">
-            Student Portal
-          </a>
-
-          <a href="results.html">
-            Academic Results
-          </a>
-
-          <a href="graduation.html">
-            Graduation
-          </a>
-
-        </div>
+        <img
+          src="./swinburne-sidebar-final.png"
+          alt="Swinburne University of Technology"
+        >
 
       </div>
 
 
-      <div class="portal-footer-campus">
+      <div class="portal-section-label">
+        Overview
+      </div>
 
-        <div class="portal-footer-campus-title">
-          Liên hệ với Swinburne Vietnam Alliance Program
+      <nav class="portal-nav">
+        ${links(overview)}
+      </nav>
+
+
+      <div class="portal-section-label">
+        Academics
+      </div>
+
+      <nav class="portal-nav">
+        ${links(academics)}
+      </nav>
+
+
+      <div class="portal-section-label">
+        Account
+      </div>
+
+      <nav class="portal-nav">
+        ${links(account)}
+      </nav>
+
+
+      <div class="portal-user">
+
+        <div class="portal-user-name">
+          ${escapeHTML(STUDENT.name)}
         </div>
 
+        <div class="portal-user-id">
+          ${escapeHTML(STUDENT.id)}
+          · Bachelor of Business
+        </div>
 
-        <div class="portal-footer-grid">
+        <button
+          class="portal-logout"
+          type="button"
+          id="portalLogout"
+        >
+          Log out
+        </button>
 
-          <div>
+      </div>
+    `;
 
-            <h4>
-              Cơ sở Hà Nội
-            </h4>
+
+    document.body.prepend(aside);
+
+
+    const logout =
+      document.getElementById(
+        "portalLogout"
+      );
+
+    if (logout) {
+
+      logout.addEventListener(
+        "click",
+        function () {
+
+          localStorage.removeItem("auth");
+
+          location.href =
+            "login.html";
+
+        }
+      );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     TOP BAR
+     ======================================================= */
+
+  function createTopbar(
+    title,
+    subtitle
+  ) {
+
+    const content =
+      currentContent();
+
+    const today =
+      new Date().toLocaleDateString(
+        "en-GB",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+
+
+    const bar =
+      document.createElement("div");
+
+    bar.className =
+      "portal-topbar";
+
+    bar.innerHTML = `
+
+      <div>
+
+        <div class="portal-eyebrow">
+          SWINBURNE VIETNAM · STUDENT PORTAL
+        </div>
+
+        <h1 class="portal-title">
+          ${escapeHTML(title)}
+        </h1>
+
+        <p class="portal-subtitle">
+          ${escapeHTML(subtitle || "")}
+        </p>
+
+      </div>
+
+
+      <div class="portal-top-actions">
+
+        <div class="portal-date">
+          ${today}
+        </div>
+
+        <div class="portal-avatar">
+          ${initials(STUDENT.name)}
+        </div>
+
+      </div>
+    `;
+
+    content.appendChild(bar);
+  }
+
+
+  /* =======================================================
+     FOOTER
+     ======================================================= */
+
+  function createFooter() {
+
+    if (
+      document.querySelector(
+        ".portal-footer"
+      )
+    ) return;
+
+
+    const footer =
+      document.createElement("footer");
+
+    footer.className =
+      "portal-footer";
+
+    footer.innerHTML = `
+
+      <div class="portal-footer-inner">
+
+        <div class="portal-footer-top">
+
+          <div class="portal-footer-brand">
+
+            <img
+              class="portal-footer-logo"
+              src="./swinburne-sidebar-final.png"
+              alt="Swinburne University of Technology"
+            >
+
+            <h3>
+              Swinburne Vietnam
+            </h3>
 
             <p>
-              Số 80 Duy Tân,
-              Phường Cầu Giấy,
-              TP. Hà Nội
+              Swinburne University of Technology
+              — Vietnam Alliance Program
             </p>
 
             <p>
-              0939 403 555
+              Alliance with FPT Education
             </p>
 
           </div>
@@ -589,20 +596,32 @@ function createFooter() {
           <div>
 
             <h4>
-              Cơ sở Đà Nẵng
+              Swinburne Vietnam
             </h4>
 
-            <p>
-              Lô 1+2-A14-16
-              Khu Công Viên Bắc đài tưởng niệm,
-              đường 2 tháng 9,
-              Phường Hòa Cường,
-              Đà Nẵng
-            </p>
+            <a
+              href="https://swinburne-vn.edu.vn/"
+              target="_blank"
+              rel="noopener"
+            >
+              Giới thiệu
+            </a>
 
-            <p>
-              0798 210 555
-            </p>
+            <a
+              href="https://swinburne-vn.edu.vn/sinh-vien-hien-tai/"
+              target="_blank"
+              rel="noopener"
+            >
+              Sinh viên
+            </a>
+
+            <a
+              href="https://swinburne-vn.edu.vn/"
+              target="_blank"
+              rel="noopener"
+            >
+              Nghiên cứu
+            </a>
 
           </div>
 
@@ -610,18 +629,32 @@ function createFooter() {
           <div>
 
             <h4>
-              Cơ sở HCM
+              Tuyển sinh
             </h4>
 
-            <p>
-              A35 Bạch Đằng,
-              Phường Tân Sơn Hòa,
-              TP. Hồ Chí Minh
-            </p>
+            <a
+              href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
+              target="_blank"
+              rel="noopener"
+            >
+              Tuyển sinh 2026
+            </a>
 
-            <p>
-              0387 148 555
-            </p>
+            <a
+              href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
+              target="_blank"
+              rel="noopener"
+            >
+              Thủ tục tuyển sinh
+            </a>
+
+            <a
+              href="https://swinburne-vn.edu.vn/course/quan-tri-kinh-doanh/"
+              target="_blank"
+              rel="noopener"
+            >
+              Chương trình đào tạo
+            </a>
 
           </div>
 
@@ -629,351 +662,360 @@ function createFooter() {
           <div>
 
             <h4>
-              Cơ sở Cần Thơ
+              Sinh viên Swinburne
             </h4>
 
-            <p>
-              Số 600 Nguyễn Văn Cừ,
-              Phường An Bình,
-              TP. Cần Thơ
-            </p>
+            <a href="dashboard.html">
+              Student Portal
+            </a>
 
-            <p>
-              0348 766 555
-            </p>
+            <a href="results.html">
+              Academic Results
+            </a>
+
+            <a href="graduation.html">
+              Graduation
+            </a>
 
           </div>
 
         </div>
 
-      </div>
+
+        <div class="portal-footer-campus">
+
+          <div class="portal-footer-campus-title">
+            Liên hệ với Swinburne Vietnam Alliance Program
+          </div>
 
 
-      <div class="portal-footer-bottom">
+          <div class="portal-footer-grid">
 
-        <span>
-          © 2026 Swinburne Vietnam Alliance Program
-        </span>
-
-        <span>
-          Swinburne University of Technology
-        </span>
-
-      </div>
-
-
-    </div>
-
-  `;
+            <div>
+              <h4>Cơ sở Hà Nội</h4>
+              <p>
+                Số 80 Duy Tân,
+                Phường Cầu Giấy,
+                TP. Hà Nội
+              </p>
+              <p>0939 403 555</p>
+            </div>
 
 
-  document.body.appendChild(
-    footer
-  );
-
-}
-
-
-/* =========================================================
-   KPI CARD
-   ========================================================= */
-
-function kpi(
-  label,
-  value,
-  meta,
-  sub,
-  extraClass = ""
-) {
-
-  return `
-
-    <div class="portal-card portal-kpi">
-
-      <div class="portal-kpi-label">
-        ${label}
-      </div>
-
-      <div class="portal-kpi-value">
-        ${value}
-      </div>
-
-      <div class="portal-kpi-meta ${extraClass}">
-        ${meta} · ${sub}
-      </div>
-
-    </div>
-
-  `;
-
-}
+            <div>
+              <h4>Cơ sở Đà Nẵng</h4>
+              <p>
+                Lô 1+2-A14-16
+                Khu Công Viên Bắc đài tưởng niệm,
+                đường 2 tháng 9,
+                Phường Hòa Cường,
+                Đà Nẵng
+              </p>
+              <p>0798 210 555</p>
+            </div>
 
 
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-function renderDashboard() {
-
-  createTopbar(
-    "Dashboard",
-    `Welcome back, ${S.name}. Here is your current academic overview.`
-  );
-
-
-  const article =
-    document.querySelector(
-      "body.app > article"
-    );
+            <div>
+              <h4>Cơ sở HCM</h4>
+              <p>
+                A35 Bạch Đằng,
+                Phường Tân Sơn Hòa,
+                TP. Hồ Chí Minh
+              </p>
+              <p>0387 148 555</p>
+            </div>
 
 
-  article.innerHTML += `
+            <div>
+              <h4>Cơ sở Cần Thơ</h4>
+              <p>
+                Số 600 Nguyễn Văn Cừ,
+                Phường An Bình,
+                TP. Cần Thơ
+              </p>
+              <p>0348 766 555</p>
+            </div>
 
-    <section class="portal-hero">
-
-      <div class="portal-hero-grid">
-
-        <div>
-
-          <h2>
-            Academic journey completed
-          </h2>
-
-          <p>
-            ${S.id}
-            · Bachelor of Business
-            · Swinburne Vietnam
-          </p>
+          </div>
 
         </div>
 
 
-        <div class="portal-hero-side">
-
-          <strong>
-            ${S.progress}%
-          </strong>
+        <div class="portal-footer-bottom">
 
           <span>
-            PROGRAM COMPLETION
+            © 2026 Swinburne Vietnam Alliance Program
+          </span>
+
+          <span>
+            Swinburne University of Technology
           </span>
 
         </div>
 
       </div>
+    `;
 
-    </section>
-
-
-    <section class="portal-section portal-grid portal-grid-4">
-
-      ${kpi(
-        "Current GPA",
-        CALCULATED_GPA.toFixed(2),
-        "4.00",
-        "Excellent academic standing"
-      )}
-
-      ${kpi(
-        "Credits completed",
-        `${TOTAL_CREDITS} / ${S.totalCredits} CP`,
-        "100%",
-        "All required credit points"
-      )}
-
-      ${kpi(
-        "Units completed",
-        `${R.length} / ${R.length}`,
-        "100%",
-        "All programme units"
-      )}
-
-      ${kpi(
-        "Fee balance",
-        "0 ₫",
-        "Clear",
-        "No outstanding balance",
-        "good"
-      )}
-
-    </section>
+    document.body.appendChild(
+      footer
+    );
+  }
 
 
-    <section class="portal-section portal-grid portal-grid-2">
+  /* =======================================================
+     COMPONENTS
+     ======================================================= */
+
+  function kpi(
+    label,
+    value,
+    meta,
+    sub,
+    extraClass = ""
+  ) {
+
+    return `
+
+      <div class="portal-card portal-kpi">
+
+        <div class="portal-kpi-label">
+          ${label}
+        </div>
+
+        <div class="portal-kpi-value">
+          ${value}
+        </div>
+
+        <div class="portal-kpi-meta ${extraClass}">
+          ${meta} · ${sub}
+        </div>
+
+      </div>
+    `;
+  }
 
 
-      <div class="portal-card">
+  function cardHead(
+    title,
+    action = ""
+  ) {
 
-        <div class="portal-card-head">
+    return `
 
-          <h2 class="portal-card-title">
-            Academic performance
-          </h2>
+      <div class="portal-card-head">
 
-          <span class="portal-badge badge-green">
-            Excellent
-          </span>
+        <h2 class="portal-card-title">
+          ${title}
+        </h2>
+
+        ${action}
+
+      </div>
+    `;
+  }
+
+
+  /* =======================================================
+     DASHBOARD
+     ======================================================= */
+
+  function renderDashboard() {
+
+    const content =
+      currentContent();
+
+    createTopbar(
+      "Dashboard",
+      `Welcome back, ${STUDENT.name}. Here is your current academic overview.`
+    );
+
+
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
+
+      <section class="portal-hero">
+
+        <div class="portal-hero-grid">
+
+          <div>
+
+            <h2>
+              Academic journey completed
+            </h2>
+
+            <p>
+              ${STUDENT.id}
+              · Bachelor of Business
+              · Swinburne Vietnam
+            </p>
+
+          </div>
+
+
+          <div class="portal-hero-side">
+
+            <strong>
+              ${STUDENT.progress}%
+            </strong>
+
+            <span>
+              PROGRAM COMPLETION
+            </span>
+
+          </div>
 
         </div>
 
+      </section>
 
-        <div
-          style="
+
+      <section class="portal-section portal-grid portal-grid-4">
+
+        ${kpi(
+          "Current GPA",
+          GPA.toFixed(2),
+          "4.00",
+          "Excellent academic standing"
+        )}
+
+        ${kpi(
+          "Credits completed",
+          `${TOTAL_CREDITS} / ${STUDENT.totalCredits} CP`,
+          "100%",
+          "All required credit points"
+        )}
+
+        ${kpi(
+          "Units completed",
+          `${RESULTS.length} / ${RESULTS.length}`,
+          "100%",
+          "All programme units"
+        )}
+
+        ${kpi(
+          "Fee balance",
+          "0 ₫",
+          "Clear",
+          "No outstanding balance",
+          "good"
+        )}
+
+      </section>
+
+
+      <section class="portal-section portal-grid portal-grid-2">
+
+        <div class="portal-card">
+
+          ${cardHead(
+            "Academic performance",
+            `<span class="portal-badge badge-green">Excellent</span>`
+          )}
+
+          <div style="
             font-size:38px;
             font-weight:850;
             letter-spacing:-1.5px;
-          "
-        >
+          ">
+            ${GPA.toFixed(2)}
 
-          ${CALCULATED_GPA.toFixed(2)}
-
-          <span
-            style="
+            <span style="
               font-size:14px;
               color:var(--muted);
               font-weight:650;
-            "
+            ">
+              / 4.00
+            </span>
+          </div>
+
+          <div
+            class="portal-progress"
+            style="margin-top:20px"
           >
-            / 4.00
-          </span>
+            <span
+              style="
+                width:${Math.min(100, GPA / 4 * 100)}%;
+              "
+            ></span>
+          </div>
+
+          <div class="portal-statline">
+            <span>Academic standing</span>
+            <strong>Excellent</strong>
+          </div>
 
         </div>
 
 
-        <div
-          style="margin-top:20px"
-          class="portal-progress"
-        >
+        <div class="portal-card">
 
-          <span
-            style="
-              width:${(CALCULATED_GPA / 4) * 100}%;
-            "
-          ></span>
+          ${cardHead(
+            "Graduation progress",
+            `<a class="portal-action" href="graduation.html">
+              View details
+            </a>`
+          )}
 
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Academic standing
-          </span>
-
-          <strong>
-            Excellent
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Graduation progress
-          </h2>
-
-          <a
-            class="portal-action"
-            href="graduation.html"
-          >
-            View details
-          </a>
-
-        </div>
-
-
-        <div
-          style="
+          <div style="
             font-size:25px;
             font-weight:850;
-          "
-        >
+          ">
+            ${TOTAL_CREDITS}
 
-          ${TOTAL_CREDITS}
-
-          <span
-            style="
+            <span style="
               font-size:13px;
               color:var(--muted);
-            "
+            ">
+              / ${STUDENT.totalCredits} CP
+            </span>
+          </div>
+
+          <div
+            class="portal-progress"
+            style="margin-top:17px"
           >
-            / ${S.totalCredits} CP
-          </span>
+            <span style="width:100%"></span>
+          </div>
+
+          <div class="portal-statline">
+            <span>${RESULTS.length} of ${RESULTS.length} units</span>
+            <strong>Completed</strong>
+          </div>
 
         </div>
 
-
-        <div
-          style="margin-top:17px"
-          class="portal-progress"
-        >
-
-          <span style="width:100%"></span>
-
-        </div>
+      </section>
 
 
-        <div class="portal-statline">
+      <section class="portal-section portal-grid portal-grid-2">
 
-          <span>
-            ${R.length} of ${R.length} units
-          </span>
+        <div class="portal-card">
 
-          <strong>
-            Completed
-          </strong>
+          ${cardHead(
+            "Recent academic results",
+            `<a class="portal-action" href="results.html">
+              View transcript
+            </a>`
+          )}
 
-        </div>
+          <div class="portal-list">
 
-      </div>
-
-    </section>
-
-
-    <section class="portal-section portal-grid portal-grid-2">
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Recent academic results
-          </h2>
-
-          <a
-            class="portal-action"
-            href="results.html"
-          >
-            View transcript
-          </a>
-
-        </div>
-
-
-        <div class="portal-list">
-
-          ${R
-            .slice(-4)
-            .reverse()
-            .map(
-              x => `
+            ${RESULTS
+              .slice(-5)
+              .reverse()
+              .map(row => `
 
                 <div class="portal-list-row">
 
                   <div class="portal-list-main">
 
                     <div class="portal-code">
-                      ${x[0]}
+                      ${row[0]}
                     </div>
 
                     <div class="portal-name">
-                      ${x[1]}
+                      ${row[1]}
                     </div>
 
                   </div>
@@ -982,1756 +1024,1270 @@ function renderDashboard() {
                   <div class="portal-right">
 
                     <div class="portal-mark">
-                      ${x[2]}
+                      ${row[2]}
                     </div>
 
-                    <span
-                      class="
-                        portal-badge
-                        ${x[3] === "HD"
-                          ? "badge-green"
-                          : "badge-blue"}
-                      "
-                    >
-                      ${x[3]}
+                    <span class="
+                      portal-badge
+                      ${row[3] === "HD"
+                        ? "badge-green"
+                        : "badge-blue"}
+                    ">
+                      ${row[3]}
                     </span>
 
                   </div>
 
                 </div>
 
-              `
-            )
-            .join("")}
+              `)
+              .join("")}
 
-        </div>
-
-      </div>
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Quick actions
-          </h2>
+          </div>
 
         </div>
 
 
-        <div class="portal-actions">
+        <div class="portal-card">
 
-          <a
-            class="portal-action primary"
-            href="results.html"
-          >
-            View transcript
-          </a>
+          ${cardHead("Quick actions")}
 
-          <a
-            class="portal-action"
-            href="timetable.html"
-          >
-            View timetable
-          </a>
+          <div class="portal-actions">
 
-          <a
-            class="portal-action"
-            href="fees.html"
-          >
-            Fees & payments
-          </a>
+            <a
+              class="portal-action primary"
+              href="results.html"
+            >
+              View transcript
+            </a>
 
-          <a
-            class="portal-action"
-            href="support.html"
-          >
-            Contact support
-          </a>
+            <a
+              class="portal-action"
+              href="timetable.html"
+            >
+              View timetable
+            </a>
+
+            <a
+              class="portal-action"
+              href="fees.html"
+            >
+              Fees & payments
+            </a>
+
+            <a
+              class="portal-action"
+              href="support.html"
+            >
+              Contact support
+            </a>
+
+          </div>
+
+          <div class="portal-divider"></div>
+
+          <div class="portal-note">
+
+            <strong>Student record</strong>
+
+            <br>
+
+            All ${RESULTS.length} units are recorded as completed.
+            Your current GPA is ${GPA.toFixed(2)}.
+
+          </div>
 
         </div>
 
-
-        <div class="portal-divider"></div>
-
-
-        <div class="portal-note">
-
-          <strong>
-            Student record
-          </strong>
-
-          <br>
-
-          All ${R.length} units are recorded as completed.
-          Your current GPA is
-          ${CALCULATED_GPA.toFixed(2)}.
-
-        </div>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   ACADEMIC RESULTS
-   ========================================================= */
-
-function renderResults() {
-
-  createTopbar(
-    "Academic Results",
-    "Academic record overview and transcript search."
-  );
-
-
-  const article =
-    document.querySelector(
-      "body.app > article"
+      </section>
+      `
     );
-
-
-  article.innerHTML += `
-
-    <section class="portal-grid portal-grid-4">
-
-      ${kpi(
-        "Cumulative GPA",
-        CALCULATED_GPA.toFixed(2),
-        "4.00 scale",
-        "24 units"
-      )}
-
-      ${kpi(
-        "Credit points",
-        TOTAL_CREDITS,
-        "CP",
-        "Completed"
-      )}
-
-      ${kpi(
-        "High distinctions",
-        R.filter(x => x[3] === "HD").length,
-        "of 24",
-        "HD grades"
-      )}
-
-      ${kpi(
-        "Academic standing",
-        "Excellent",
-        "Current",
-        "Classification"
-      )}
-
-    </section>
-
-
-    <section class="portal-section portal-card">
-
-      <div class="portal-card-head">
-
-        <h2 class="portal-card-title">
-          Academic transcript
-        </h2>
-
-        <button
-          class="portal-action primary"
-          onclick="window.print()"
-        >
-          Print transcript
-        </button>
-
-      </div>
-
-
-      <div class="portal-searchbar">
-
-        <input
-          id="q"
-          placeholder="Search unit code or unit name…"
-          oninput="draw()"
-        >
-
-      </div>
-
-
-      <div class="portal-table-wrap">
-
-        <table
-          class="portal-table"
-          id="t"
-        ></table>
-
-      </div>
-
-    </section>
-
-  `;
-
-
-  draw();
-
-}
-
-
-/* =========================================================
-   RESULTS TABLE
-   ========================================================= */
-
-function draw() {
-
-  const table =
-    document.getElementById("t");
-
-
-  if (
-    !table ||
-    typeof R === "undefined"
-  ) {
-    return;
   }
 
 
-  const query =
-    (
-      document.getElementById("q")?.value ||
-      ""
-    )
-      .toLowerCase()
-      .trim();
+  /* =======================================================
+     RESULTS
+     ======================================================= */
+
+  function renderResults() {
+
+    const content =
+      currentContent();
+
+    createTopbar(
+      "Academic Results",
+      "Complete academic transcript and grade history."
+    );
 
 
-  const rows =
-    R.filter(
-      row =>
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
+
+      <section class="portal-section">
+
+        <div class="portal-card">
+
+          ${cardHead(
+            "Academic transcript",
+            `<button
+              class="portal-action primary"
+              id="printResults"
+              type="button"
+            >
+              Print transcript
+            </button>`
+          )}
+
+
+          <div class="portal-grid portal-grid-4">
+
+            ${kpi(
+              "GPA",
+              GPA.toFixed(2),
+              "4.00",
+              "Scale"
+            )}
+
+            ${kpi(
+              "Credit points",
+              TOTAL_CREDITS,
+              "300",
+              "Required"
+            )}
+
+            ${kpi(
+              "Units",
+              RESULTS.length,
+              RESULTS.length,
+              "Completed"
+            )}
+
+            ${kpi(
+              "Classification",
+              "Excellent",
+              "Award",
+              "Bachelor of Business"
+            )}
+
+          </div>
+
+
+          <div style="
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            margin:28px 0 18px;
+          ">
+
+            <input
+              id="resultSearch"
+              type="search"
+              placeholder="Search by unit code or unit name..."
+              style="
+                flex:1;
+                min-width:240px;
+                padding:13px 15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                font:inherit;
+                background:#fff;
+              "
+            >
+
+            <select
+              id="gradeFilter"
+              style="
+                padding:13px 15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                font:inherit;
+                background:#fff;
+              "
+            >
+              <option value="ALL">All grades</option>
+              <option value="HD">HD</option>
+              <option value="D">D</option>
+              <option value="C">C</option>
+              <option value="P">P</option>
+              <option value="CP">CP</option>
+            </select>
+
+          </div>
+
+
+          <div style="overflow-x:auto">
+
+            <table class="portal-table">
+
+              <thead>
+
+                <tr>
+                  <th>Unit code</th>
+                  <th>Unit name</th>
+                  <th>Mark</th>
+                  <th>Grade</th>
+                  <th>GPA</th>
+                  <th>Credit</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="resultsBody"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+      `
+    );
+
+
+    function drawResults() {
+
+      const search =
         (
-          row[0] +
-          " " +
-          row[1]
+          document.getElementById(
+            "resultSearch"
+          )?.value || ""
         )
-          .toLowerCase()
-          .includes(query)
-    );
+        .trim()
+        .toLowerCase();
 
+      const filter =
+        document.getElementById(
+          "gradeFilter"
+        )?.value || "ALL";
 
-  table.innerHTML = `
 
-    <thead>
+      const rows =
+        RESULTS.filter(row => {
 
-      <tr>
+          const matchesSearch =
+            !search ||
+            row[0].toLowerCase().includes(search) ||
+            row[1].toLowerCase().includes(search);
 
-        <th>
-          Unit code
-        </th>
+          const matchesGrade =
+            filter === "ALL" ||
+            row[3] === filter;
 
-        <th>
-          Unit
-        </th>
+          return (
+            matchesSearch &&
+            matchesGrade
+          );
 
-        <th>
-          Mark
-        </th>
+        });
 
-        <th>
-          Grade
-        </th>
 
-        <th>
-          Grade point
-        </th>
+      const tbody =
+        document.getElementById(
+          "resultsBody"
+        );
 
-        <th>
-          Credit points
-        </th>
+      if (!tbody) return;
 
-      </tr>
 
-    </thead>
+      tbody.innerHTML =
+        rows.map(row => `
 
+          <tr>
 
-    <tbody>
+            <td>
+              <strong>${row[0]}</strong>
+            </td>
 
-      ${rows
-        .map(
-          x => `
+            <td>
+              ${row[1]}
+            </td>
 
-            <tr>
+            <td>
+              <strong>${row[2]}</strong>
+            </td>
 
-              <td>
-                <strong>
-                  ${x[0]}
-                </strong>
-              </td>
+            <td>
+              <span class="
+                portal-badge
+                ${row[3] === "HD"
+                  ? "badge-green"
+                  : "badge-blue"}
+              ">
+                ${row[3]}
+              </span>
+            </td>
 
-              <td>
-                ${x[1]}
-              </td>
+            <td>
+              ${row[4]}
+            </td>
 
-              <td>
-                <strong>
-                  ${x[2]}
-                </strong>
-              </td>
+            <td>
+              ${UNIT_CREDIT} CP
+            </td>
 
-              <td>
+          </tr>
 
-                <span
-                  class="
-                    portal-badge
-                    ${
-                      x[3] === "HD"
-                        ? "badge-green"
-                        : x[3] === "D"
-                        ? "badge-blue"
-                        : "badge-amber"
-                    }
-                  "
-                >
-                  ${x[3]}
-                </span>
+        `).join("");
 
-              </td>
 
-              <td>
-                ${x[4]}
-              </td>
+      if (!rows.length) {
 
-              <td>
-                12.5 CP
-              </td>
+        tbody.innerHTML = `
 
-            </tr>
+          <tr>
+            <td
+              colspan="6"
+              style="
+                text-align:center;
+                padding:35px;
+                color:var(--muted);
+              "
+            >
+              No results found.
+            </td>
+          </tr>
 
-          `
-        )
-        .join("")}
+        `;
 
-    </tbody>
+      }
 
-  `;
+    }
 
-}
 
+    drawResults();
 
-/* =========================================================
-   COURSES
-   ========================================================= */
 
-function renderCourses() {
+    document
+      .getElementById("resultSearch")
+      ?.addEventListener(
+        "input",
+        drawResults
+      );
 
-  createTopbar(
-    "Courses",
-    "Bachelor of Business · 24 completed units · 300 credit points."
-  );
 
+    document
+      .getElementById("gradeFilter")
+      ?.addEventListener(
+        "change",
+        drawResults
+      );
 
-  const groups = [
 
-    [
-      "Core units",
-      R.slice(0, 8)
-    ],
+    document
+      .getElementById("printResults")
+      ?.addEventListener(
+        "click",
+        () => window.print()
+      );
 
-    [
-      "Business Administration major",
-      R.slice(8, 16)
-    ],
-
-    [
-      "Elective units",
-      R.slice(16)
-    ]
-
-  ];
-
-
-  const article =
-    document.querySelector(
-      "body.app > article"
-    );
-
-
-  article.innerHTML += `
-
-    <section class="portal-card">
-
-      <div class="portal-card-head">
-
-        <h2 class="portal-card-title">
-          Programme structure
-        </h2>
-
-        <span class="portal-badge badge-green">
-          ${R.length} / ${R.length} completed
-        </span>
-
-      </div>
-
-
-      <div class="portal-searchbar">
-
-        <input
-          id="courseSearch"
-          placeholder="Search course code or name…"
-          oninput="renderCourseGroups()"
-        >
-
-      </div>
-
-
-      <div id="courseGroups"></div>
-
-    </section>
-
-  `;
-
-
-  window.courseGroups =
-    groups;
-
-
-  renderCourseGroups();
-
-}
-
-
-function renderCourseGroups() {
-
-  const query =
-    (
-      document.getElementById(
-        "courseSearch"
-      )?.value || ""
-    )
-      .toLowerCase();
-
-
-  const element =
-    document.getElementById(
-      "courseGroups"
-    );
-
-
-  if (!element) {
-    return;
   }
 
 
-  element.innerHTML =
-    courseGroups
-      .map(
-        group => `
+  /* =======================================================
+     COURSES
+     ======================================================= */
 
-          <div
-            style="
-              margin:25px 0;
-            "
-          >
+  function renderCourses() {
 
-            <div class="portal-card-head">
+    const content =
+      currentContent();
 
-              <h3 class="portal-card-title">
-                ${group[0]}
-              </h3>
-
-              <span class="portal-badge badge-green">
-                ${group[1].length} units
-              </span>
-
-            </div>
+    createTopbar(
+      "Courses",
+      "Bachelor of Business — Business Administration."
+    );
 
 
-            <div class="portal-table-wrap">
+    const core = [
+      ["ECO10005","Economics for Business Decision Making"],
+      ["ACC10007","Financial Information for Decision Making"],
+      ["MGT10009","Contemporary Management Principles"],
+      ["MKT10009","Marketing and the Consumer Experience"],
+      ["BUS10015","Creative Mindset and Entrepreneurship"],
+      ["INF10024","Business Digitalisation"],
+      ["BUS30031","Sustainable Business Practice"],
+      ["BUS30032","Business Consulting Project"]
+    ];
 
-              <table class="portal-table">
+    const major = [
+      ["BUS10014","Business for Sustainability, Social Change and Impact"],
+      ["HRM20017","Managing Workplace Relations"],
+      ["MGT20007","Organisational Behaviour"],
+      ["INF20016","Big Data Management"],
+      ["LAW20019","Law of Commerce"],
+      ["INF30015","Knowledge Management and Analytics"],
+      ["MGT30005","Strategic Planning"],
+      ["PRM30001","Project Management Essentials"]
+    ];
 
-                <thead>
-
-                  <tr>
-
-                    <th>
-                      Code
-                    </th>
-
-                    <th>
-                      Unit
-                    </th>
-
-                    <th>
-                      Result
-                    </th>
-
-                    <th>
-                      Grade
-                    </th>
-
-                    <th>
-                      CP
-                    </th>
-
-                    <th>
-                      Status
-                    </th>
-
-                  </tr>
-
-                </thead>
+    const electives = [
+      ["BUS20013","Business Professional Internship"],
+      ["HRM30012","Digital Management and the Future of Work"],
+      ["INB10002","International Business Operations"],
+      ["SCM20003","Global Logistics and Supply Chain Management"],
+      ["MKT20019","Marketing Research and Analytics"],
+      ["STA10003","Foundation of Statistics"],
+      ["MDA10012","Communicating with Data"],
+      ["MKT30016","Marketing Strategy and Planning"]
+    ];
 
 
-                <tbody>
+    function courseSection(
+      title,
+      subtitle,
+      list
+    ) {
 
-                  ${group[1]
-                    .filter(
-                      x =>
-                        (
-                          x[0] +
-                          " " +
-                          x[1]
-                        )
-                          .toLowerCase()
-                          .includes(query)
-                    )
-                    .map(
-                      x => `
+      return `
 
-                        <tr>
+        <section class="portal-section">
 
-                          <td>
-                            <strong>
-                              ${x[0]}
-                            </strong>
-                          </td>
+          <div class="portal-card">
 
-                          <td>
-                            ${x[1]}
-                          </td>
+            ${cardHead(
+              title,
+              `<span class="portal-badge badge-blue">
+                ${list.length} units
+              </span>`
+            )}
 
-                          <td>
-                            ${x[2]}
-                          </td>
+            <p style="
+              color:var(--muted);
+              margin-top:-6px;
+              margin-bottom:20px;
+            ">
+              ${subtitle}
+            </p>
 
-                          <td>
 
-                            <span class="portal-badge badge-green">
-                              ${x[3]}
-                            </span>
+            <div class="portal-list">
 
-                          </td>
+              ${list.map((course, index) => `
 
-                          <td>
-                            12.5
-                          </td>
+                <div class="portal-list-row">
 
-                          <td>
+                  <div class="portal-list-main">
 
-                            <span class="portal-badge badge-green">
-                              Completed
-                            </span>
+                    <div class="portal-code">
+                      ${course[0]}
+                    </div>
 
-                          </td>
+                    <div class="portal-name">
+                      ${course[1]}
+                    </div>
 
-                        </tr>
+                  </div>
 
-                      `
-                    )
-                    .join("")}
+                  <div class="portal-right">
 
-                </tbody>
+                    <span class="portal-badge badge-green">
+                      Completed
+                    </span>
 
-              </table>
+                    <span style="
+                      color:var(--muted);
+                      font-size:13px;
+                    ">
+                      ${UNIT_CREDIT} CP
+                    </span>
+
+                  </div>
+
+                </div>
+
+              `).join("")}
 
             </div>
 
           </div>
 
-        `
-      )
-      .join("");
-
-}
+        </section>
+      `;
+    }
 
 
-/* =========================================================
-   TIMETABLE
-   ========================================================= */
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
 
-function renderTimetable() {
+      ${courseSection(
+        "Core units",
+        "Core units required for the Bachelor of Business.",
+        core
+      )}
 
-  createTopbar(
-    "Timetable",
-    "Weekly class schedule · Current study plan."
-  );
+      ${courseSection(
+        "Business Administration major",
+        "Units forming the Business Administration major.",
+        major
+      )}
 
+      ${courseSection(
+        "Elective units",
+        "Selected elective units within the programme.",
+        electives
+      )}
 
-  const days = [
-    "Time",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
-  ];
+      `
+    );
 
-
-  const classes = [
-
-    [
-      "09:00",
-      "MGT10009",
-      "Management Principles",
-      "Room A203",
-      "Monday"
-    ],
-
-    [
-      "10:00",
-      "STA10003",
-      "Foundation of Statistics",
-      "Lab 2",
-      "Tuesday"
-    ],
-
-    [
-      "09:00",
-      "HRM20017",
-      "Managing Workplace Relations",
-      "Room A104",
-      "Wednesday"
-    ],
-
-    [
-      "13:00",
-      "MKT30016",
-      "Marketing Strategy and Planning",
-      "Room B204",
-      "Thursday"
-    ],
-
-    [
-      "10:00",
-      "BUS30032",
-      "Business Consulting Project",
-      "Room C301",
-      "Friday"
-    ]
-
-  ];
+  }
 
 
-  const times = [
-    "09:00",
-    "10:00",
-    "11:00",
-    "13:00",
-    "14:00"
-  ];
+  /* =======================================================
+     TIMETABLE
+     ======================================================= */
 
+  function renderTimetable() {
 
-  const article =
-    document.querySelector(
-      "body.app > article"
+    const content =
+      currentContent();
+
+    createTopbar(
+      "Timetable",
+      "Academic timetable and scheduled learning activities."
     );
 
 
-  article.innerHTML += `
-
-    <section class="portal-card">
-
-      <div class="portal-card-head">
-
-        <h2 class="portal-card-title">
-          Weekly schedule
-        </h2>
-
-        <span class="portal-badge badge-blue">
-          Semester 2 · 2026
-        </span>
-
-      </div>
+    const schedule = [
+      ["Monday","08:00 – 10:00","MKT30016","Marketing Strategy and Planning","Room A201"],
+      ["Tuesday","10:00 – 12:00","MGT30005","Strategic Planning","Room B204"],
+      ["Wednesday","13:00 – 15:00","INF30015","Knowledge Management and Analytics","Room C102"],
+      ["Thursday","09:00 – 11:00","PRM30001","Project Management Essentials","Room A305"],
+      ["Friday","13:00 – 15:00","BUS30032","Business Consulting Project","Room B101"]
+    ];
 
 
-      <div class="portal-timetable">
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
 
-        ${days
-          .map(
-            day =>
-              `<div class="day">${day}</div>`
-          )
-          .join("")}
+      <section class="portal-section">
 
+        <div class="portal-card">
 
-        ${times
-          .map(
-            time => `
+          ${cardHead(
+            "Weekly timetable",
+            `<span class="portal-badge badge-green">
+              Current semester
+            </span>`
+          )}
 
-              <div class="time">
-                ${time}
-              </div>
+          <div style="overflow-x:auto">
 
+            <table class="portal-table">
 
-              ${[
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday"
-              ]
-                .map(
-                  day => {
+              <thead>
 
-                    const item =
-                      classes.find(
-                        x =>
-                          x[0] === time &&
-                          x[4] === day
-                      );
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Unit</th>
+                  <th>Activity</th>
+                  <th>Location</th>
+                </tr>
 
+              </thead>
 
-                    if (!item) {
-                      return "<div></div>";
-                    }
+              <tbody>
 
+                ${schedule.map(item => `
 
-                    return `
+                  <tr>
 
-                      <div>
+                    <td>
+                      <strong>${item[0]}</strong>
+                    </td>
 
-                        <div class="portal-class">
+                    <td>
+                      ${item[1]}
+                    </td>
 
-                          <strong>
-                            ${item[1]}
-                          </strong>
+                    <td>
+                      <strong>${item[2]}</strong>
+                    </td>
 
-                          <span>
-                            ${item[2]}
-                          </span>
+                    <td>
+                      ${item[3]}
+                    </td>
 
-                          <span>
-                            ${item[3]}
-                          </span>
+                    <td>
+                      ${item[4]}
+                    </td>
 
-                        </div>
+                  </tr>
 
-                      </div>
+                `).join("")}
 
-                    `;
+              </tbody>
 
-                  }
-                )
-                .join("")}
+            </table>
 
-            `
-          )
-          .join("")}
+          </div>
 
-      </div>
+        </div>
 
-    </section>
+      </section>
 
-  `;
+      `
+    );
 
-}
+  }
 
 
-/* =========================================================
-   GRADUATION
-   ========================================================= */
+  /* =======================================================
+     GRADUATION
+     ======================================================= */
 
-function renderGraduation() {
+  function renderGraduation() {
 
-  createTopbar(
-    "Graduation",
-    "Completion status for the Bachelor of Business programme."
-  );
+    const content =
+      currentContent();
 
-
-  const article =
-    document.querySelector(
-      "body.app > article"
+    createTopbar(
+      "Graduation",
+      "Track your programme completion and graduation status."
     );
 
 
-  article.innerHTML += `
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
 
-    <section class="portal-hero">
+      <section class="portal-hero">
 
-      <div class="portal-hero-grid">
+        <div class="portal-hero-grid">
 
-        <div>
+          <div>
 
-          <h2>
-            Programme completed
-          </h2>
+            <h2>
+              Graduation requirements completed
+            </h2>
 
-          <p>
-            Bachelor of Business · ${S.id}
+            <p>
+              Your academic record shows completion
+              of all required programme credit points.
+            </p>
+
+          </div>
+
+          <div class="portal-hero-side">
+
+            <strong>100%</strong>
+
+            <span>
+              COMPLETE
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="portal-section portal-grid portal-grid-2">
+
+        <div class="portal-card">
+
+          ${cardHead(
+            "Programme completion",
+            `<span class="portal-badge badge-green">
+              Completed
+            </span>`
+          )}
+
+          <div style="
+            font-size:42px;
+            font-weight:850;
+          ">
+            ${TOTAL_CREDITS}
+            <span style="
+              font-size:14px;
+              color:var(--muted);
+            ">
+              / ${STUDENT.totalCredits} CP
+            </span>
+          </div>
+
+          <div
+            class="portal-progress"
+            style="margin-top:20px"
+          >
+            <span style="width:100%"></span>
+          </div>
+
+          <div class="portal-statline">
+            <span>Credit completion</span>
+            <strong>100%</strong>
+          </div>
+
+        </div>
+
+
+        <div class="portal-card">
+
+          ${cardHead(
+            "Academic classification"
+          )}
+
+          <div style="
+            font-size:32px;
+            font-weight:850;
+          ">
+            Excellent
+          </div>
+
+          <p style="
+            color:var(--muted);
+            margin-top:10px;
+          ">
+            Current calculated GPA:
+            <strong>${GPA.toFixed(2)} / 4.00</strong>
           </p>
 
         </div>
 
+      </section>
 
-        <div class="portal-hero-side">
 
-          <strong>
-            100%
-          </strong>
+      <section class="portal-section">
 
-          <span>
-            COMPLETION
-          </span>
+        <div class="portal-card">
 
-        </div>
+          ${cardHead(
+            "Graduation checklist"
+          )}
 
-      </div>
+          <div class="portal-checklist">
 
-    </section>
-
-
-    <section class="portal-section portal-grid portal-grid-4">
-
-      ${kpi(
-        "Credits",
-        `${TOTAL_CREDITS}/${S.totalCredits}`,
-        "CP",
-        "Completed"
-      )}
-
-      ${kpi(
-        "Units",
-        `${R.length}/${R.length}`,
-        "Units",
-        "Completed"
-      )}
-
-      ${kpi(
-        "GPA",
-        CALCULATED_GPA.toFixed(2),
-        "out of 4.00",
-        "Current"
-      )}
-
-      ${kpi(
-        "Classification",
-        "Excellent",
-        "Award",
-        "Bachelor of Business"
-      )}
-
-    </section>
-
-
-    <section class="portal-section portal-grid portal-grid-2">
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Completion checklist
-          </h2>
-
-          <span class="portal-badge badge-green">
-            Complete
-          </span>
-
-        </div>
-
-
-        <div class="portal-checklist">
-
-          ${[
-            "Core units completed",
-            "Business Administration major completed",
-            "Elective units completed",
-            "300 credit points completed",
-            "Academic requirements completed"
-          ]
-            .map(
-              item => `
-
-                <div class="portal-check">
-
-                  <div class="portal-check-dot">
-                    ✓
-                  </div>
-
-                  <div>
-
-                    <strong>
-                      ${item}
-                    </strong>
-
-                    <span>
-                      Requirement satisfied
-                    </span>
-
-                  </div>
-
-                </div>
-
-              `
-            )
-            .join("")}
-
-        </div>
-
-      </div>
-
-
-      <div class="portal-card">
-
-        <h2 class="portal-card-title">
-          Graduation record
-        </h2>
-
-
-        <div class="portal-divider"></div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Status
-          </span>
-
-          <strong>
-            Completed
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Award
-          </span>
-
-          <strong>
-            Bachelor of Business
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Classification
-          </span>
-
-          <strong>
-            Excellent
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            GPA
-          </span>
-
-          <strong>
-            ${CALCULATED_GPA.toFixed(2)} / 4.00
-          </strong>
-
-        </div>
-
-
-        <div class="portal-divider"></div>
-
-
-        <a
-          class="portal-action primary"
-          href="results.html"
-        >
-          View academic record
-        </a>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   FEES
-   ========================================================= */
-
-function renderFees() {
-
-  createTopbar(
-    "Fees & Payments",
-    "Student account summary and payment history."
-  );
-
-
-  const article =
-    document.querySelector(
-      "body.app > article"
-    );
-
-
-  article.innerHTML += `
-
-    <section class="portal-grid portal-grid-4">
-
-      ${kpi(
-        "Outstanding balance",
-        "0 ₫",
-        "Account",
-        "Clear",
-        "good"
-      )}
-
-      ${kpi(
-        "Current status",
-        "Paid",
-        "Account",
-        "In good standing",
-        "good"
-      )}
-
-      ${kpi(
-        "Academic year",
-        "2026",
-        "Current",
-        "Study period"
-      )}
-
-      ${kpi(
-        "Payment records",
-        "1",
-        "Transaction",
-        "Recorded"
-      )}
-
-    </section>
-
-
-    <section class="portal-section portal-grid portal-grid-2">
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Account status
-          </h2>
-
-          <span class="portal-badge badge-green">
-            Clear
-          </span>
-
-        </div>
-
-
-        <div
-          style="
-            font-size:34px;
-            font-weight:850;
-          "
-        >
-          0 ₫
-        </div>
-
-
-        <p
-          style="
-            color:var(--muted);
-            font-size:12px;
-            line-height:1.6;
-          "
-        >
-          There is currently no outstanding
-          amount on this demo student account.
-        </p>
-
-      </div>
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Payment summary
-          </h2>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Tuition recorded
-          </span>
-
-          <strong>
-            45,000,000 ₫
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Paid
-          </span>
-
-          <strong>
-            45,000,000 ₫
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Outstanding
-          </span>
-
-          <strong>
-            0 ₫
-          </strong>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section class="portal-section portal-card">
-
-      <div class="portal-card-head">
-
-        <h2 class="portal-card-title">
-          Payment history
-        </h2>
-
-      </div>
-
-
-      <div class="portal-table-wrap">
-
-        <table class="portal-table">
-
-          <thead>
-
-            <tr>
-
-              <th>
-                Date
-              </th>
-
-              <th>
-                Description
-              </th>
-
-              <th>
-                Amount
-              </th>
-
-              <th>
-                Status
-              </th>
-
-            </tr>
-
-          </thead>
-
-
-          <tbody>
-
-            <tr>
-
-              <td>
-                16 May 2026
-              </td>
-
-              <td>
-                Summer 2026 tuition
-              </td>
-
-              <td>
-                45,000,000 ₫
-              </td>
-
-              <td>
-
-                <span class="portal-badge badge-green">
-                  Paid
-                </span>
-
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   PROFILE
-   ========================================================= */
-
-function renderProfile() {
-
-  createTopbar(
-    "Student Profile",
-    "Personal and academic information associated with your student record."
-  );
-
-
-  const article =
-    document.querySelector(
-      "body.app > article"
-    );
-
-
-  article.innerHTML += `
-
-    <section class="portal-profile">
-
-      <div class="portal-profile-avatar">
-
-        ${initials(S.name)}
-
-      </div>
-
-
-      <div>
-
-        <h2>
-          ${S.name}
-        </h2>
-
-        <p>
-          ${S.id}
-          · Bachelor of Business
-          · Swinburne Vietnam
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <section class="portal-section portal-grid portal-grid-2">
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Student information
-          </h2>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Full name
-          </span>
-
-          <strong>
-            ${S.name}
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Student ID
-          </span>
-
-          <strong>
-            ${S.id}
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Programme
-          </span>
-
-          <strong>
-            Bachelor of Business
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Campus
-          </span>
-
-          <strong>
-            Swinburne Vietnam
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Academic information
-          </h2>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Current GPA
-          </span>
-
-          <strong>
-            ${CALCULATED_GPA.toFixed(2)} / 4.00
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Credits completed
-          </span>
-
-          <strong>
-            ${TOTAL_CREDITS} / ${S.totalCredits} CP
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Units completed
-          </span>
-
-          <strong>
-            ${R.length} / ${R.length}
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Classification
-          </span>
-
-          <strong>
-            Excellent
-          </strong>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-/* =========================================================
-   SUPPORT
-   ========================================================= */
-
-function renderSupport() {
-
-  createTopbar(
-    "Support / Queries",
-    "Submit an enquiry and review your previous support requests."
-  );
-
-
-  const article =
-    document.querySelector(
-      "body.app > article"
-    );
-
-
-  article.innerHTML += `
-
-    <section class="portal-section portal-grid portal-grid-2">
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Create a support enquiry
-          </h2>
-
-        </div>
-
-
-        <div class="portal-field">
-
-          <label>
-            SUBJECT
-          </label>
-
-          <input
-            class="portal-input"
-            id="sub"
-            placeholder="e.g. Graduation documentation"
-          >
-
-        </div>
-
-
-        <div
-          class="portal-field"
-          style="margin-top:14px"
-        >
-
-          <label>
-            MESSAGE
-          </label>
-
-          <textarea
-            class="portal-textarea"
-            id="msg"
-            placeholder="Describe what you need help with…"
-          ></textarea>
-
-        </div>
-
-
-        <div style="margin-top:14px">
-
-          <button
-            class="portal-action primary"
-            onclick="send()"
-          >
-            Submit enquiry
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="portal-card">
-
-        <div class="portal-card-head">
-
-          <h2 class="portal-card-title">
-            Support information
-          </h2>
-
-        </div>
-
-
-        <div class="portal-note">
-
-          <strong>
-            Student support
-          </strong>
-
-          <br>
-
-          For academic, programme or student
-          administration enquiries, submit a request
-          and keep your reference details for follow-up.
-
-        </div>
-
-
-        <div class="portal-divider"></div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Student ID
-          </span>
-
-          <strong>
-            ${S.id}
-          </strong>
-
-        </div>
-
-
-        <div class="portal-statline">
-
-          <span>
-            Account
-          </span>
-
-          <strong>
-            Active
-          </strong>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section class="portal-section portal-card">
-
-      <div class="portal-card-head">
-
-        <h2 class="portal-card-title">
-          Your enquiries
-        </h2>
-
-      </div>
-
-
-      <div id="tickets"></div>
-
-    </section>
-
-  `;
-
-
-  show();
-
-}
-
-
-/* =========================================================
-   SUPPORT SEND
-   ========================================================= */
-
-function send() {
-
-  const subject =
-    document.getElementById("sub");
-
-  const message =
-    document.getElementById("msg");
-
-
-  if (
-    !subject ||
-    !message ||
-    !subject.value.trim() ||
-    !message.value.trim()
-  ) {
-    return;
-  }
-
-
-  const tickets =
-    JSON.parse(
-      localStorage.tickets || "[]"
-    );
-
-
-  tickets.unshift({
-
-    s: subject.value.trim(),
-
-    m: message.value.trim(),
-
-    d: new Date()
-      .toLocaleString()
-
-  });
-
-
-  localStorage.tickets =
-    JSON.stringify(tickets);
-
-
-  subject.value = "";
-
-  message.value = "";
-
-
-  show();
-
-}
-
-
-/* =========================================================
-   SUPPORT LIST
-   ========================================================= */
-
-function show() {
-
-  const element =
-    document.getElementById(
-      "tickets"
-    );
-
-
-  if (!element) {
-    return;
-  }
-
-
-  const tickets =
-    JSON.parse(
-      localStorage.tickets || "[]"
-    );
-
-
-  if (!tickets.length) {
-
-    element.innerHTML = `
-
-      <div class="portal-empty">
-
-        No support enquiries yet.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  element.innerHTML =
-
-    tickets
-      .map(
-        ticket => `
-
-          <div class="portal-list-row">
-
-            <div class="portal-list-main">
-
-              <div class="portal-code">
-                ${ticket.s}
-              </div>
-
-              <div class="portal-name">
-                ${ticket.m}
-              </div>
-
-              <div class="portal-name">
-                ${ticket.d}
-              </div>
-
+            <div>
+              ✓
+              <span>
+                All programme units completed
+              </span>
             </div>
 
-
-            <div class="portal-right">
-
-              <span class="portal-badge badge-blue">
-                Open
+            <div>
+              ✓
+              <span>
+                ${TOTAL_CREDITS} credit points completed
               </span>
+            </div>
+
+            <div>
+              ✓
+              <span>
+                Academic requirements completed
+              </span>
+            </div>
+
+            <div>
+              ✓
+              <span>
+                Academic classification recorded
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      `
+    );
+
+  }
+
+
+  /* =======================================================
+     FEES
+     ======================================================= */
+
+  function renderFees() {
+
+    const content =
+      currentContent();
+
+    createTopbar(
+      "Fees & Payments",
+      "View your student account balance and payment status."
+    );
+
+
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
+
+      <section class="portal-section portal-grid portal-grid-3">
+
+        ${kpi(
+          "Account balance",
+          "0 ₫",
+          "Paid",
+          "No outstanding balance",
+          "good"
+        )}
+
+        ${kpi(
+          "Programme status",
+          "Completed",
+          "300 CP",
+          "Credit requirement met"
+        )}
+
+        ${kpi(
+          "Payment status",
+          "Clear",
+          "Current",
+          "Student account"
+        )}
+
+      </section>
+
+
+      <section class="portal-section">
+
+        <div class="portal-card">
+
+          ${cardHead(
+            "Payment history"
+          )}
+
+          <div style="overflow-x:auto">
+
+            <table class="portal-table">
+
+              <thead>
+
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr>
+                  <td>2026</td>
+                  <td>Tuition and programme fees</td>
+                  <td>Paid</td>
+                  <td>
+                    <span class="portal-badge badge-green">
+                      Paid
+                    </span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>2026</td>
+                  <td>Student account</td>
+                  <td>0 ₫ outstanding</td>
+                  <td>
+                    <span class="portal-badge badge-green">
+                      Clear
+                    </span>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      `
+    );
+
+  }
+
+
+  /* =======================================================
+     PROFILE
+     ======================================================= */
+
+  function renderProfile() {
+
+    const content =
+      currentContent();
+
+    createTopbar(
+      "Student Profile",
+      "Personal and academic information."
+    );
+
+
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
+
+      <section class="portal-section">
+
+        <div class="portal-card portal-profile">
+
+          <div style="
+            display:flex;
+            align-items:center;
+            gap:20px;
+            flex-wrap:wrap;
+          ">
+
+            <div class="portal-avatar" style="
+              width:72px;
+              height:72px;
+              font-size:22px;
+            ">
+              ${initials(STUDENT.name)}
+            </div>
+
+            <div>
+
+              <h2 style="
+                margin:0;
+                font-size:27px;
+              ">
+                ${escapeHTML(STUDENT.name)}
+              </h2>
+
+              <p style="
+                margin:6px 0 0;
+                color:var(--muted);
+              ">
+                ${STUDENT.id}
+                · Bachelor of Business
+              </p>
 
             </div>
 
           </div>
 
-        `
-      )
-      .join("");
 
-}
+          <div
+            class="portal-grid portal-grid-2"
+            style="margin-top:30px"
+          >
+
+            <div>
+
+              <div class="portal-statline">
+                <span>Student ID</span>
+                <strong>${STUDENT.id}</strong>
+              </div>
+
+              <div class="portal-statline">
+                <span>Name</span>
+                <strong>${STUDENT.name}</strong>
+              </div>
+
+              <div class="portal-statline">
+                <span>Programme</span>
+                <strong>Bachelor of Business</strong>
+              </div>
+
+            </div>
 
 
-/* =========================================================
-   PAGE ROUTER
-   ========================================================= */
+            <div>
 
-function renderPage() {
+              <div class="portal-statline">
+                <span>Major</span>
+                <strong>Business Administration</strong>
+              </div>
 
-  switch (page) {
+              <div class="portal-statline">
+                <span>GPA</span>
+                <strong>${GPA.toFixed(2)} / 4.00</strong>
+              </div>
 
-    case "dashboard.html":
-      renderDashboard();
-      break;
+              <div class="portal-statline">
+                <span>Status</span>
+                <strong>Completed</strong>
+              </div>
 
-    case "results.html":
-      renderResults();
-      break;
+            </div>
 
-    case "courses.html":
-      renderCourses();
-      break;
+          </div>
 
-    case "timetable.html":
-      renderTimetable();
-      break;
+        </div>
 
-    case "graduation.html":
-      renderGraduation();
-      break;
+      </section>
 
-    case "fees.html":
-      renderFees();
-      break;
-
-    case "profile.html":
-      renderProfile();
-      break;
-
-    case "support.html":
-      renderSupport();
-      break;
+      `
+    );
 
   }
 
-}
+
+  /* =======================================================
+     SUPPORT
+     ======================================================= */
+
+  function renderSupport() {
+
+    const content =
+      currentContent();
+
+    createTopbar(
+      "Support / Queries",
+      "Submit a question or request to student support."
+    );
 
 
-/* =========================================================
-   INITIALISE
-   ========================================================= */
+    content.insertAdjacentHTML(
+      "beforeend",
+      `
 
-createSidebar();
+      <section class="portal-section portal-grid portal-grid-2">
 
-renderPage();
+        <div class="portal-card">
 
-createFooter();
+          ${cardHead(
+            "Submit a query"
+          )}
+
+          <form id="supportForm">
+
+            <label style="
+              display:block;
+              margin-bottom:7px;
+              font-weight:700;
+            ">
+              Subject
+            </label>
+
+            <input
+              id="supportSubject"
+              required
+              type="text"
+              placeholder="Enter your subject"
+              style="
+                width:100%;
+                padding:13px 15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                font:inherit;
+                margin-bottom:18px;
+              "
+            >
+
+
+            <label style="
+              display:block;
+              margin-bottom:7px;
+              font-weight:700;
+            ">
+              Message
+            </label>
+
+            <textarea
+              id="supportMessage"
+              required
+              rows="7"
+              placeholder="Describe your question..."
+              style="
+                width:100%;
+                padding:13px 15px;
+                border:1px solid var(--border);
+                border-radius:10px;
+                font:inherit;
+                resize:vertical;
+                margin-bottom:18px;
+              "
+            ></textarea>
+
+
+            <button
+              class="portal-action primary"
+              type="submit"
+            >
+              Submit query
+            </button>
+
+          </form>
+
+        </div>
+
+
+        <div class="portal-card">
+
+          ${cardHead(
+            "Student support"
+          )}
+
+          <div class="portal-list">
+
+            <div class="portal-list-row">
+
+              <div class="portal-list-main">
+
+                <div class="portal-code">
+                  Academic
+                </div>
+
+                <div class="portal-name">
+                  Questions about results,
+                  courses and graduation.
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="portal-list-row">
+
+              <div class="portal-list-main">
+
+                <div class="portal-code">
+                  Finance
+                </div>
+
+                <div class="portal-name">
+                  Questions about fees
+                  and student payments.
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="portal-list-row">
+
+              <div class="portal-list-main">
+
+                <div class="portal-code">
+                  Student services
+                </div>
+
+                <div class="portal-name">
+                  General student enquiries
+                  and administrative support.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      `
+    );
+
+
+    document
+      .getElementById("supportForm")
+      ?.addEventListener(
+        "submit",
+        function (event) {
+
+          event.preventDefault();
+
+          alert(
+            "Your query has been submitted successfully."
+          );
+
+          this.reset();
+
+        }
+      );
+
+  }
+
+
+  /* =======================================================
+     ROUTER
+     ======================================================= */
+
+  function renderPage() {
+
+    switch (page) {
+
+      case "dashboard.html":
+      case "":
+        renderDashboard();
+        break;
+
+      case "results.html":
+        renderResults();
+        break;
+
+      case "courses.html":
+        renderCourses();
+        break;
+
+      case "timetable.html":
+        renderTimetable();
+        break;
+
+      case "graduation.html":
+        renderGraduation();
+        break;
+
+      case "fees.html":
+        renderFees();
+        break;
+
+      case "profile.html":
+        renderProfile();
+        break;
+
+      case "support.html":
+        renderSupport();
+        break;
+
+      default:
+        renderDashboard();
+        break;
+    }
+
+  }
+
+
+  /* =======================================================
+     INIT
+     ======================================================= */
+
+  function init() {
+
+    prepareLayout();
+
+    createSidebar();
+
+    renderPage();
+
+    createFooter();
+
+  }
+
+
+  if (
+    document.readyState === "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
+  } else {
+
+    init();
+
+  }
+
+})();
