@@ -1,1 +1,18 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>results — Student Portal Project</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="app.css"></head><body class="app"><aside><b>SWINBURNE</b><small>S</small><a href="dashboard.html">Dashboard</a><a href="results.html">Academic Results</a><a href="courses.html">Courses</a><a href="timetable.html">Timetable</a><a href="graduation.html">Graduation</a><a href="fees.html">Fees & Payments</a><a href="profile.html">Student Profile</a><a href="support.html">Support / Queries</a><button onclick="localStorage.clear();location='login.html'">Log out</button></aside><article><h1>Academic Results</h1><div class="panel"><input id="q" placeholder="Search unit…" oninput="draw()"><button onclick="print()">Print transcript</button><table id="t"></table></div><footer>Academic Project · Not an official university system.</footer></article><script src="data.js"></script><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Swinburne Vietnam Academic Results">
+  <title>Academic Results — Swinburne Student Portal</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body class="app">
+  <main class="portal-main">
+    <article class="portal-content"></article>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
