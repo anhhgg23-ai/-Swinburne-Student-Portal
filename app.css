@@ -1,6 +1,6 @@
 /* =========================================================
    SWINBURNE STUDENT PORTAL
-   PROFESSIONAL V2 — GLOBAL CSS
+   PROFESSIONAL V2 — FINAL LAYOUT
    ========================================================= */
 
 * {
@@ -36,7 +36,9 @@
   --sidebar: 290px;
 
   --radius: 16px;
-  --shadow: 0 8px 28px rgba(18, 20, 24, 0.055);
+
+  --shadow:
+    0 8px 28px rgba(18, 20, 24, 0.055);
 }
 
 
@@ -45,11 +47,15 @@
    ========================================================= */
 
 html {
+  margin: 0;
+  padding: 0;
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  padding: 0;
+
   background: var(--bg);
   color: var(--text);
 
@@ -68,7 +74,22 @@ body {
 
 body.app {
   min-height: 100vh;
+
   overflow-x: hidden;
+}
+
+body.app main {
+  margin: 0;
+  padding: 0;
+
+  max-width: none;
+
+  display: block;
+}
+
+body.app article {
+  margin: 0;
+  max-width: none;
 }
 
 a {
@@ -87,24 +108,8 @@ button {
 }
 
 img {
+  display: block;
   max-width: 100%;
-  display: block;
-}
-
-
-/* =========================================================
-   REMOVE OLD PAGE STRUCTURE EFFECTS
-   ========================================================= */
-
-body.app main {
-  display: block;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-body.app article {
-  max-width: none;
 }
 
 
@@ -115,8 +120,8 @@ body.app article {
 .portal-sidebar {
   position: fixed;
 
-  left: 0;
   top: 0;
+  left: 0;
   bottom: 0;
 
   width: var(--sidebar);
@@ -130,14 +135,18 @@ body.app article {
 
   color: white;
 
-  padding: 30px 22px 22px;
+  padding:
+    30px
+    22px
+    22px;
 
   display: flex;
   flex-direction: column;
 
   overflow-y: auto;
+  overflow-x: hidden;
 
-  z-index: 1000;
+  z-index: 9999;
 
   border-right:
     1px solid
@@ -150,11 +159,17 @@ body.app article {
    ========================================================= */
 
 .portal-brand {
+  width: 100%;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  padding: 0 0 25px;
+  padding:
+    0
+    0
+    25px;
 
   margin-bottom: 24px;
 
@@ -167,17 +182,21 @@ body.app article {
   width: 205px;
   height: 105px;
 
+  max-width: 100%;
+
   object-fit: contain;
 }
 
 
 /* =========================================================
-   SIDEBAR SECTION LABEL
+   SIDEBAR LABEL
    ========================================================= */
 
 .portal-section-label {
   margin:
-    18px 14px 8px;
+    18px
+    14px
+    8px;
 
   color: #73767d;
 
@@ -185,31 +204,40 @@ body.app article {
   font-weight: 800;
 
   letter-spacing: .16em;
+
   text-transform: uppercase;
 }
 
 
 /* =========================================================
-   SIDEBAR NAV
+   NAVIGATION
    ========================================================= */
 
 .portal-nav {
+  width: 100%;
+
   display: flex;
   flex-direction: column;
+
   gap: 4px;
 }
 
 .portal-nav a {
   position: relative;
 
+  width: 100%;
+
   display: flex;
+
   align-items: center;
 
   gap: 13px;
 
   min-height: 46px;
 
-  padding: 11px 13px;
+  padding:
+    11px
+    13px;
 
   color: #aeb0b5;
 
@@ -237,7 +265,9 @@ body.app article {
 
 .portal-nav a:hover {
   color: white;
-  background: rgba(255,255,255,.07);
+
+  background:
+    rgba(255,255,255,.07);
 }
 
 .portal-nav a.active {
@@ -264,6 +294,8 @@ body.app article {
    ========================================================= */
 
 .portal-user {
+  width: 100%;
+
   margin-top: auto;
 
   padding-top: 20px;
@@ -274,17 +306,21 @@ body.app article {
 }
 
 .portal-user-name {
-  padding: 0 12px;
+  padding:
+    0
+    12px;
 
   color: white;
 
-  font-weight: 750;
   font-size: 14px;
+  font-weight: 750;
 }
 
 .portal-user-id {
   padding:
-    2px 12px 14px;
+    2px
+    12px
+    14px;
 
   color: #73767d;
 
@@ -294,7 +330,9 @@ body.app article {
 .portal-logout {
   width: 100%;
 
-  padding: 11px 14px;
+  padding:
+    11px
+    14px;
 
   border:
     1px solid
@@ -318,26 +356,55 @@ body.app article {
 
 
 /* =========================================================
-   MAIN LAYOUT
+   MAIN — CRITICAL FIX
    ========================================================= */
 
 .portal-main {
+  position: relative;
+
+  display: block;
+
   min-height: 100vh;
 
   margin-left: var(--sidebar);
 
-  width: auto;
+  /*
+    IMPORTANT:
+    force the main content to occupy only
+    the area remaining beside the sidebar.
+  */
+  width: calc(100% - var(--sidebar));
+
+  max-width: none;
+
+  overflow: visible;
 }
 
+
+/* =========================================================
+   CONTENT — CRITICAL FIX
+   ========================================================= */
+
 .portal-content {
-  min-height: calc(100vh - 1px);
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  max-width: none;
+
+  min-width: 0;
+
+  min-height: 100vh;
+
+  margin: 0;
 
   padding:
     48px
     52px
     60px;
 
-  width: 100%;
+  overflow: visible;
 }
 
 
@@ -346,9 +413,12 @@ body.app article {
    ========================================================= */
 
 .portal-topbar {
+  width: 100%;
+
   display: flex;
 
   align-items: flex-start;
+
   justify-content: space-between;
 
   gap: 30px;
@@ -379,7 +449,10 @@ body.app article {
 }
 
 .portal-subtitle {
-  margin: 10px 0 0;
+  margin:
+    10px
+    0
+    0;
 
   max-width: 720px;
 
@@ -394,6 +467,8 @@ body.app article {
   align-items: center;
 
   gap: 14px;
+
+  flex-shrink: 0;
 }
 
 .portal-date {
@@ -401,6 +476,8 @@ body.app article {
 
   font-size: 12px;
   font-weight: 650;
+
+  white-space: nowrap;
 }
 
 .portal-avatar {
@@ -408,7 +485,10 @@ body.app article {
   height: 40px;
 
   display: grid;
+
   place-items: center;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
@@ -426,9 +506,13 @@ body.app article {
    ========================================================= */
 
 .portal-hero {
+  width: 100%;
+
   margin-bottom: 22px;
 
-  padding: 30px 32px;
+  padding:
+    30px
+    32px;
 
   color: white;
 
@@ -447,16 +531,22 @@ body.app article {
 }
 
 .portal-hero-grid {
+  width: 100%;
+
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   gap: 30px;
 }
 
 .portal-hero h2 {
-  margin: 0 0 6px;
+  margin:
+    0
+    0
+    6px;
 
   color: white;
 
@@ -474,6 +564,8 @@ body.app article {
 }
 
 .portal-hero-side {
+  flex-shrink: 0;
+
   text-align: right;
 }
 
@@ -505,10 +597,14 @@ body.app article {
    ========================================================= */
 
 .portal-section {
+  width: 100%;
+
   margin-top: 22px;
 }
 
 .portal-grid {
+  width: 100%;
+
   display: grid;
 
   gap: 18px;
@@ -516,12 +612,26 @@ body.app article {
 
 .portal-grid-2 {
   grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+}
+
+.portal-grid-3 {
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
 }
 
 .portal-grid-4 {
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
 }
 
 
@@ -530,6 +640,8 @@ body.app article {
    ========================================================= */
 
 .portal-card {
+  width: 100%;
+
   min-width: 0;
 
   background: var(--white);
@@ -549,6 +661,7 @@ body.app article {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   gap: 15px;
@@ -592,7 +705,10 @@ body.app article {
   background: var(--red);
 
   border-radius:
-    0 0 4px 4px;
+    0
+    0
+    4px
+    4px;
 }
 
 .portal-kpi-label {
@@ -628,6 +744,7 @@ body.app article {
 
 .portal-kpi-meta.good {
   color: var(--green);
+
   font-weight: 750;
 }
 
@@ -640,12 +757,14 @@ body.app article {
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
 
   min-height: 27px;
 
   padding:
-    4px 10px;
+    4px
+    10px;
 
   border-radius: 999px;
 
@@ -657,16 +776,19 @@ body.app article {
 
 .badge-green {
   color: var(--green);
+
   background: var(--green-bg);
 }
 
 .badge-blue {
   color: var(--blue);
+
   background: var(--blue-bg);
 }
 
 .badge-amber {
   color: var(--amber);
+
   background: var(--amber-bg);
 }
 
@@ -700,11 +822,14 @@ body.app article {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   gap: 20px;
 
-  padding: 12px 0;
+  padding:
+    12px
+    0;
 
   border-bottom:
     1px solid
@@ -734,18 +859,24 @@ body.app article {
 
 .portal-list {
   display: flex;
+
   flex-direction: column;
+
+  width: 100%;
 }
 
 .portal-list-row {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   gap: 20px;
 
-  padding: 15px 0;
+  padding:
+    15px
+    0;
 
   border-bottom:
     1px solid
@@ -758,6 +889,8 @@ body.app article {
 
 .portal-list-main {
   min-width: 0;
+
+  flex: 1;
 }
 
 .portal-code {
@@ -775,6 +908,7 @@ body.app article {
   font-size: 12px;
 
   overflow: hidden;
+
   text-overflow: ellipsis;
 }
 
@@ -784,10 +918,13 @@ body.app article {
   align-items: center;
 
   gap: 10px;
+
+  flex-shrink: 0;
 }
 
 .portal-mark {
   font-size: 14px;
+
   font-weight: 800;
 }
 
@@ -800,7 +937,10 @@ body.app article {
   display: grid;
 
   grid-template-columns:
-    repeat(2, minmax(0, 1fr));
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
 
   gap: 10px;
 }
@@ -809,11 +949,14 @@ body.app article {
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
 
   min-height: 42px;
 
-  padding: 10px 14px;
+  padding:
+    10px
+    14px;
 
   border:
     1px solid
@@ -859,7 +1002,9 @@ body.app article {
 .portal-divider {
   height: 1px;
 
-  margin: 22px 0;
+  margin:
+    22px
+    0;
 
   background: var(--border);
 }
@@ -888,88 +1033,8 @@ body.app article {
 
 
 /* =========================================================
-   SEARCH
-   ========================================================= */
-
-.portal-searchbar {
-  margin-bottom: 20px;
-}
-
-.portal-searchbar input,
-.portal-input,
-.portal-textarea {
-  width: 100%;
-
-  border:
-    1px solid
-    #dfe1e5;
-
-  border-radius: 10px;
-
-  background: white;
-
-  outline: none;
-
-  transition: .18s ease;
-}
-
-.portal-searchbar input {
-  max-width: 520px;
-
-  padding: 12px 14px;
-}
-
-.portal-input {
-  padding: 12px 14px;
-}
-
-.portal-textarea {
-  min-height: 145px;
-
-  padding: 13px 14px;
-
-  resize: vertical;
-}
-
-.portal-searchbar input:focus,
-.portal-input:focus,
-.portal-textarea:focus {
-  border-color: var(--red);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(217,47,47,.08);
-}
-
-.portal-field label {
-  display: block;
-
-  margin-bottom: 6px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-  font-weight: 800;
-
-  letter-spacing: .12em;
-}
-
-
-/* =========================================================
    TABLE
    ========================================================= */
-
-.portal-table-wrap {
-  width: 100%;
-
-  overflow-x: auto;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 12px;
-}
 
 .portal-table {
   width: 100%;
@@ -982,7 +1047,9 @@ body.app article {
 }
 
 .portal-table th {
-  padding: 13px 14px;
+  padding:
+    13px
+    14px;
 
   background: #f8f9fa;
 
@@ -1003,7 +1070,8 @@ body.app article {
 }
 
 .portal-table td {
-  padding: 14px;
+  padding:
+    14px;
 
   border-bottom:
     1px solid
@@ -1024,100 +1092,6 @@ body.app article {
 
 
 /* =========================================================
-   TIMETABLE
-   ========================================================= */
-
-.portal-timetable {
-  display: grid;
-
-  grid-template-columns:
-    80px
-    repeat(5, minmax(150px, 1fr));
-
-  min-width: 830px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 14px;
-
-  overflow: hidden;
-}
-
-.portal-timetable > div {
-  min-height: 105px;
-
-  padding: 12px;
-
-  border-right:
-    1px solid
-    var(--border);
-
-  border-bottom:
-    1px solid
-    var(--border);
-}
-
-.portal-timetable .day {
-  min-height: 48px;
-
-  background: #f8f9fa;
-
-  color: #686c73;
-
-  font-size: 11px;
-  font-weight: 800;
-
-  text-transform: uppercase;
-
-  letter-spacing: .08em;
-}
-
-.portal-timetable .time {
-  min-height: 105px;
-
-  color: var(--muted);
-
-  font-size: 11px;
-  font-weight: 750;
-
-  background: #fafafa;
-}
-
-.portal-class {
-  padding: 12px;
-
-  border-left:
-    3px solid
-    var(--red);
-
-  border-radius: 8px;
-
-  background:
-    #fff6f6;
-
-  min-height: 75px;
-}
-
-.portal-class strong {
-  display: block;
-
-  font-size: 11px;
-}
-
-.portal-class span {
-  display: block;
-
-  margin-top: 3px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-}
-
-
-/* =========================================================
    CHECKLIST
    ========================================================= */
 
@@ -1129,7 +1103,7 @@ body.app article {
   gap: 10px;
 }
 
-.portal-check {
+.portal-checklist > div {
   display: flex;
 
   align-items: center;
@@ -1145,55 +1119,13 @@ body.app article {
   border-radius: 11px;
 }
 
-.portal-check-dot {
-  width: 28px;
-  height: 28px;
-
-  display: grid;
-  place-items: center;
-
-  flex: 0 0 28px;
-
-  border-radius: 50%;
-
-  background: var(--green-bg);
-
-  color: var(--green);
-
-  font-weight: 900;
-}
-
-.portal-check strong {
-  display: block;
-
-  font-size: 12px;
-}
-
-.portal-check span {
-  display: block;
-
-  margin-top: 2px;
-
-  color: var(--muted);
-
-  font-size: 10px;
-}
-
 
 /* =========================================================
    PROFILE
    ========================================================= */
 
 .portal-profile {
-  display: flex;
-
-  align-items: center;
-
-  gap: 18px;
-
-  margin-bottom: 22px;
-
-  padding: 25px;
+  width: 100%;
 
   background: white;
 
@@ -1206,66 +1138,16 @@ body.app article {
   box-shadow: var(--shadow);
 }
 
-.portal-profile-avatar {
-  width: 62px;
-  height: 62px;
-
-  display: grid;
-  place-items: center;
-
-  flex: 0 0 62px;
-
-  border-radius: 50%;
-
-  background: var(--black);
-
-  color: white;
-
-  font-size: 17px;
-  font-weight: 850;
-}
-
-.portal-profile h2 {
-  margin: 0;
-
-  font-size: 21px;
-
-  letter-spacing: -.03em;
-}
-
-.portal-profile p {
-  margin: 5px 0 0;
-
-  color: var(--muted);
-
-  font-size: 12px;
-}
-
-
-/* =========================================================
-   EMPTY STATE
-   ========================================================= */
-
-.portal-empty {
-  padding: 35px;
-
-  text-align: center;
-
-  color: var(--muted);
-
-  border:
-    1px dashed
-    #d7d9dd;
-
-  border-radius: 12px;
-}
-
 
 /* =========================================================
    FOOTER
    ========================================================= */
 
 .portal-footer {
+  position: relative;
+
+  width: calc(100% - var(--sidebar));
+
   margin-left: var(--sidebar);
 
   padding:
@@ -1284,6 +1166,8 @@ body.app article {
 }
 
 .portal-footer-inner {
+  width: 100%;
+
   max-width: 1250px;
 
   margin: 0 auto;
@@ -1308,7 +1192,10 @@ body.app article {
 }
 
 .portal-footer-brand h3 {
-  margin: 0 0 7px;
+  margin:
+    0
+    0
+    7px;
 
   font-size: 18px;
 }
@@ -1316,7 +1203,9 @@ body.app article {
 .portal-footer-brand p {
   max-width: 350px;
 
-  margin: 5px 0;
+  margin:
+    5px
+    0;
 
   color: #aeb1b8;
 
@@ -1324,7 +1213,10 @@ body.app article {
 }
 
 .portal-footer h4 {
-  margin: 0 0 14px;
+  margin:
+    0
+    0
+    14px;
 
   font-size: 13px;
 }
@@ -1332,7 +1224,9 @@ body.app article {
 .portal-footer a {
   display: block;
 
-  margin: 8px 0;
+  margin:
+    8px
+    0;
 
   color: #aeb1b8;
 
@@ -1346,7 +1240,9 @@ body.app article {
 }
 
 .portal-footer-campus {
-  padding: 30px 0;
+  padding:
+    30px
+    0;
 
   border-top:
     1px solid
@@ -1357,6 +1253,7 @@ body.app article {
   margin-bottom: 22px;
 
   font-size: 15px;
+
   font-weight: 800;
 }
 
@@ -1364,7 +1261,10 @@ body.app article {
   display: grid;
 
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
 
   gap: 28px;
 }
@@ -1412,11 +1312,15 @@ body.app article {
   }
 
   .portal-main {
-    margin-left: 0;
+    width: 100% !important;
+
+    margin-left: 0 !important;
   }
 
   .portal-content {
-    padding: 20px;
+    width: 100% !important;
+
+    padding: 20px !important;
   }
 
   body {
@@ -1430,13 +1334,33 @@ body.app article {
 
 
 /* =========================================================
-   TABLET / IPAD
+   IPAD / TABLET LANDSCAPE
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (min-width: 801px) and (max-width: 1100px) {
 
   :root {
     --sidebar: 255px;
+  }
+
+  .portal-main {
+    width:
+      calc(
+        100% - var(--sidebar)
+      );
+
+    margin-left:
+      var(--sidebar);
+  }
+
+  .portal-footer {
+    width:
+      calc(
+        100% - var(--sidebar)
+      );
+
+    margin-left:
+      var(--sidebar);
   }
 
   .portal-content {
@@ -1448,17 +1372,26 @@ body.app article {
 
   .portal-grid-4 {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
   }
 
   .portal-footer-top {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
   }
 
   .portal-footer-grid {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
   }
 }
 
@@ -1471,6 +1404,26 @@ body.app article {
 
   :root {
     --sidebar: 220px;
+  }
+
+  .portal-main {
+    width:
+      calc(
+        100% - var(--sidebar)
+      );
+
+    margin-left:
+      var(--sidebar);
+  }
+
+  .portal-footer {
+    width:
+      calc(
+        100% - var(--sidebar)
+      );
+
+    margin-left:
+      var(--sidebar);
   }
 
   .portal-sidebar {
@@ -1499,6 +1452,14 @@ body.app article {
     grid-template-columns: 1fr;
   }
 
+  .portal-grid-4 {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
   .portal-hero-grid {
     align-items: flex-start;
   }
@@ -1522,6 +1483,26 @@ body.app article {
     --sidebar: 190px;
   }
 
+  .portal-main {
+    width:
+      calc(
+        100% - var(--sidebar)
+      );
+
+    margin-left:
+      var(--sidebar);
+  }
+
+  .portal-footer {
+    width:
+      calc(
+        100% - var(--sidebar)
+      );
+
+    margin-left:
+      var(--sidebar);
+  }
+
   .portal-sidebar {
     padding:
       20px
@@ -1530,6 +1511,7 @@ body.app article {
 
   .portal-brand {
     padding-bottom: 18px;
+
     margin-bottom: 18px;
   }
 
@@ -1540,6 +1522,7 @@ body.app article {
 
   .portal-section-label {
     margin-left: 8px;
+
     font-size: 9px;
   }
 
@@ -1567,6 +1550,7 @@ body.app article {
 
   .portal-topbar {
     flex-direction: column;
+
     margin-bottom: 25px;
   }
 
@@ -1578,6 +1562,8 @@ body.app article {
     display: none;
   }
 
+  .portal-grid-2,
+  .portal-grid-3,
   .portal-grid-4 {
     grid-template-columns: 1fr;
   }
@@ -1598,13 +1584,7 @@ body.app article {
     grid-template-columns: 1fr;
   }
 
-  .portal-profile {
-    align-items: flex-start;
-  }
-
   .portal-footer {
-    margin-left: var(--sidebar);
-
     padding:
       40px
       18px
