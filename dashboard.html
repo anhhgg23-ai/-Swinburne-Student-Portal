@@ -1,337 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8">
 
-<meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
+  <meta
+    name="description"
+    content="Swinburne Vietnam Student Portal"
+  >
 
-<title>Dashboard — Swinburne Student Portal</title>
+  <title>Dashboard — Swinburne Student Portal</title>
 
-<link
-  rel="stylesheet"
-  href="styles.css"
->
-
-<link
-  rel="stylesheet"
-  href="app.css"
->
-
+  <link
+    rel="stylesheet"
+    href="app.css"
+  >
 </head>
 
 
 <body class="app">
 
+  <main class="portal-main">
 
-<!-- =====================================================
-     SIDEBAR
-     ===================================================== -->
+    <article class="portal-content"></article>
 
-<aside>
+  </main>
 
-  <b>SWINBURNE</b>
 
-  <small>S</small>
+  <script src="data.js"></script>
 
-
-  <a href="dashboard.html">
-    Dashboard
-  </a>
-
-  <a href="results.html">
-    Academic Results
-  </a>
-
-  <a href="courses.html">
-    Courses
-  </a>
-
-  <a href="timetable.html">
-    Timetable
-  </a>
-
-  <a href="graduation.html">
-    Graduation
-  </a>
-
-  <a href="fees.html">
-    Fees & Payments
-  </a>
-
-  <a href="profile.html">
-    Student Profile
-  </a>
-
-  <a href="support.html">
-    Support / Queries
-  </a>
-
-
-  <button
-    onclick="localStorage.clear();location='login.html'"
-  >
-    Log out
-  </button>
-
-</aside>
-
-
-
-<!-- =====================================================
-     MAIN
-     ===================================================== -->
-
-<article>
-
-
-  <h1>
-    Dashboard
-  </h1>
-
-
-  <!-- ===================================================
-       SUMMARY CARDS
-       =================================================== -->
-
-  <div class="cards">
-
-
-    <div>
-
-      Current GPA
-
-      <strong id="gpa">
-        —
-      </strong>
-
-    </div>
-
-
-    <div>
-
-      Credits
-
-      <strong id="credits">
-        —
-      </strong>
-
-    </div>
-
-
-    <div>
-
-      Progress
-
-      <strong id="progress">
-        —
-      </strong>
-
-    </div>
-
-
-    <div>
-
-      Fee balance
-
-      <strong>
-        0 ₫
-      </strong>
-
-    </div>
-
-
-  </div>
-
-
-
-  <!-- ===================================================
-       STUDENT OVERVIEW
-       =================================================== -->
-
-  <div class="panel">
-
-    <h2>
-      Student Overview
-    </h2>
-
-
-    <p>
-      <strong id="studentName">
-        —
-      </strong>
-    </p>
-
-
-    <p>
-
-      Student ID:
-
-      <strong id="studentId">
-        —
-      </strong>
-
-    </p>
-
-
-    <p>
-
-      Program:
-
-      <strong>
-        Bachelor of Business
-      </strong>
-
-    </p>
-
-
-    <p>
-
-      Classification:
-
-      <strong id="classification">
-        —
-      </strong>
-
-    </p>
-
-  </div>
-
-
-
-  <!-- ===================================================
-       ACADEMIC RESULTS
-       =================================================== -->
-
-  <div class="panel">
-
-    <h2>
-      Latest Academic Results
-    </h2>
-
-
-    <div id="latestResults">
-      Loading results...
-    </div>
-
-  </div>
-
-
-</article>
-
-
-
-<!-- =====================================================
-     DATA
-     ===================================================== -->
-
-<script src="data.js"></script>
-
-
-
-<script>
-
-/* GPA */
-
-document.getElementById(
-  "gpa"
-).textContent =
-  CALCULATED_GPA.toFixed(2);
-
-
-/* CREDITS */
-
-document.getElementById(
-  "credits"
-).textContent =
-  TOTAL_CREDITS +
-  " / " +
-  S.totalCredits +
-  " CP";
-
-
-/* PROGRESS */
-
-document.getElementById(
-  "progress"
-).textContent =
-  S.progress +
-  "%";
-
-
-/* STUDENT */
-
-document.getElementById(
-  "studentName"
-).textContent =
-  S.name;
-
-
-/* STUDENT ID */
-
-document.getElementById(
-  "studentId"
-).textContent =
-  S.id;
-
-
-/* CLASSIFICATION */
-
-document.getElementById(
-  "classification"
-).textContent =
-  S.classification;
-
-
-/* =======================================================
-   LATEST RESULTS
-   ======================================================= */
-
-const latestResults =
-  R
-    .slice(-3)
-    .reverse();
-
-
-document.getElementById(
-  "latestResults"
-).innerHTML =
-
-latestResults
-  .map((row) => `
-
-    <p>
-
-      <strong>
-        ${row[0]}
-      </strong>
-
-      · ${row[1]}
-
-      · ${row[2]}
-
-      · ${row[3]}
-
-    </p>
-
-  `)
-  .join("");
-
-
-</script>
-
-
-
-<!-- =====================================================
-     GLOBAL PORTAL SCRIPT
-     ===================================================== -->
-
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 
 </body>
 
