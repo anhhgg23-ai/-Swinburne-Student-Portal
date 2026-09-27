@@ -1,1 +1,1066 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login — Student Portal</title><link rel="stylesheet" href="styles.css"></head><body class="login"><section><b>SWINBURNE</b><small>S</small><div class="card"><label>STUDENT PORTAL</label><h1>Welcome back</h1><input id="id" value="SWH00779" placeholder="Student ID"><input id="pw" type="password" placeholder="Password"><button class="red" onclick="go()">Sign in</button><p id="err"></p><small>Demo: SWH00779 / Swinburne@2026</small></div></section><script>function go(){if(id.value==='SWH00779'&&pw.value==='Swinburne@2026'){localStorage.auth=1;location='dashboard.html'}else err.textContent='Invalid demo credentials.'}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Swinburne Vietnam Student Portal"
+  >
+
+  <title>Sign in — Swinburne Student Portal</title>
+
+  <style>
+    :root {
+      --red: #d71920;
+      --red-dark: #b81218;
+      --black: #111214;
+      --black-2: #1a1b1f;
+      --text: #17181b;
+      --muted: #70747b;
+      --border: #dedfe2;
+      --bg: #f5f5f6;
+      --white: #ffffff;
+      --error: #b42318;
+      --error-bg: #fff3f2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =====================================================
+       PAGE
+       ===================================================== */
+
+    .login-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(420px, 46%) 1fr;
+      background: var(--white);
+    }
+
+    /* =====================================================
+       BRAND PANEL
+       ===================================================== */
+
+    .login-brand {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 52px 58px;
+
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(255,255,255,.075),
+          transparent 30%
+        ),
+        linear-gradient(
+          145deg,
+          #111214 0%,
+          #17181b 55%,
+          #0c0d0f 100%
+        );
+    }
+
+    .login-brand::after {
+      content: "";
+      position: absolute;
+
+      width: 420px;
+      height: 420px;
+
+      right: -220px;
+      bottom: -220px;
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(255,255,255,.06);
+      box-shadow:
+        0 0 0 55px rgba(255,255,255,.018),
+        0 0 0 110px rgba(255,255,255,.012);
+
+      pointer-events: none;
+    }
+
+    .brand-top {
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-logo {
+      width: 230px;
+      height: 108px;
+
+      object-fit: contain;
+      object-position: left center;
+
+      margin-bottom: 72px;
+    }
+
+    .brand-label {
+      margin-bottom: 14px;
+
+      color: #9699a0;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .brand-heading {
+      max-width: 520px;
+
+      margin: 0;
+
+      color: white;
+
+      font-size: clamp(38px, 4vw, 58px);
+      line-height: 1.02;
+
+      letter-spacing: -.045em;
+      font-weight: 800;
+    }
+
+    .brand-description {
+      max-width: 460px;
+
+      margin: 22px 0 0;
+
+      color: #aeb0b5;
+
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .brand-bottom {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 25px;
+
+      color: #777a81;
+
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .brand-location {
+      max-width: 300px;
+    }
+
+    .brand-mark {
+      color: #55585e;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: .12em;
+      text-transform: uppercase;
+
+      text-align: right;
+    }
+
+    /* =====================================================
+       FORM AREA
+       ===================================================== */
+
+    .login-main {
+      min-width: 0;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 50px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .mobile-logo {
+      display: none;
+    }
+
+    .login-eyebrow {
+      margin-bottom: 11px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .login-title {
+      margin: 0;
+
+      color: var(--text);
+
+      font-size: 34px;
+      line-height: 1.1;
+
+      letter-spacing: -.04em;
+      font-weight: 800;
+    }
+
+    .login-subtitle {
+      margin: 12px 0 34px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* =====================================================
+       FORM
+       ===================================================== */
+
+    .login-form {
+      width: 100%;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field-label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #36383d;
+
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      width: 18px;
+      height: 18px;
+
+      transform: translateY(-50%);
+
+      color: #8b8e94;
+
+      pointer-events: none;
+    }
+
+    .login-input {
+      width: 100%;
+      height: 52px;
+
+      padding: 0 48px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: white;
+      color: var(--text);
+
+      font-size: 14px;
+
+      transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+    }
+
+    .login-input::placeholder {
+      color: #a1a4aa;
+    }
+
+    .login-input:hover {
+      border-color: #c7c9cd;
+    }
+
+    .login-input:focus {
+      border-color: var(--red);
+
+      box-shadow:
+        0 0 0 3px rgba(215,25,32,.08);
+    }
+
+    .password-toggle {
+      position: absolute;
+
+      right: 13px;
+      top: 50%;
+
+      width: 32px;
+      height: 32px;
+
+      display: grid;
+      place-items: center;
+
+      transform: translateY(-50%);
+
+      border: 0;
+      border-radius: 7px;
+
+      background: transparent;
+      color: #85888e;
+    }
+
+    .password-toggle:hover {
+      background: #f4f4f5;
+      color: #33353a;
+    }
+
+    .password-toggle svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* =====================================================
+       FORM META
+       ===================================================== */
+
+    .form-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin: 4px 0 25px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      color: #6f7278;
+
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .remember input {
+      width: 15px;
+      height: 15px;
+
+      accent-color: var(--red);
+    }
+
+    .help-link {
+      border: 0;
+      padding: 0;
+
+      background: transparent;
+
+      color: #5e6268;
+
+      font-size: 12px;
+      font-weight: 650;
+
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .help-link:hover {
+      color: var(--red);
+    }
+
+    /* =====================================================
+       SIGN IN BUTTON
+       ===================================================== */
+
+    .sign-in-button {
+      width: 100%;
+      height: 52px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
+
+      border: 0;
+      border-radius: 10px;
+
+      background: var(--red);
+      color: white;
+
+      font-size: 14px;
+      font-weight: 750;
+
+      box-shadow:
+        0 5px 14px rgba(215,25,32,.15);
+
+      transition:
+        background .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+    }
+
+    .sign-in-button:hover {
+      background: var(--red-dark);
+
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 7px 18px rgba(215,25,32,.20);
+    }
+
+    .sign-in-button:active {
+      transform: translateY(0);
+    }
+
+    .sign-in-button:disabled {
+      cursor: default;
+      opacity: .75;
+      transform: none;
+    }
+
+    .button-arrow {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
+    .login-error {
+      display: none;
+
+      margin-top: 14px;
+      padding: 12px 14px;
+
+      border: 1px solid #f2c7c3;
+      border-radius: 9px;
+
+      background: var(--error-bg);
+      color: var(--error);
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .login-error.show {
+      display: block;
+    }
+
+    /* =====================================================
+       SECURITY NOTE
+       ===================================================== */
+
+    .security-note {
+      display: flex;
+      align-items: flex-start;
+
+      gap: 10px;
+
+      margin-top: 24px;
+      padding-top: 22px;
+
+      border-top: 1px solid #ececee;
+
+      color: #85888e;
+
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .security-icon {
+      flex: 0 0 auto;
+
+      width: 16px;
+      height: 16px;
+
+      margin-top: 1px;
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    .login-footer {
+      margin-top: 40px;
+
+      color: #9a9da3;
+
+      font-size: 10px;
+      line-height: 1.6;
+
+      text-align: center;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 900px) {
+      .login-page {
+        grid-template-columns: 1fr;
+      }
+
+      .login-brand {
+        display: none;
+      }
+
+      .login-main {
+        min-height: 100vh;
+
+        padding: 38px 28px;
+      }
+
+      .login-container {
+        max-width: 440px;
+      }
+
+      .mobile-logo {
+        display: block;
+
+        width: 205px;
+        height: 95px;
+
+        object-fit: contain;
+
+        margin: 0 auto 42px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .login-main {
+        padding: 30px 20px;
+      }
+
+      .mobile-logo {
+        width: 185px;
+        height: 85px;
+
+        margin-bottom: 34px;
+      }
+
+      .login-title {
+        font-size: 30px;
+      }
+
+      .login-subtitle {
+        margin-bottom: 28px;
+      }
+
+      .form-meta {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-page">
+
+    <!-- ===================================================
+         LEFT BRAND PANEL
+         =================================================== -->
+
+    <aside class="login-brand">
+
+      <div class="brand-top">
+
+        <img
+          class="brand-logo"
+          src="swinburne-sidebar-final.png"
+          alt="Swinburne University of Technology"
+        >
+
+        <div class="brand-label">
+          Student Portal
+        </div>
+
+        <h1 class="brand-heading">
+          Your study.<br>
+          Your progress.<br>
+          Your future.
+        </h1>
+
+        <p class="brand-description">
+          Access your academic results, courses, timetable,
+          graduation progress and student services in one place.
+        </p>
+
+      </div>
+
+      <div class="brand-bottom">
+
+        <div class="brand-location">
+          Swinburne Vietnam<br>
+          Student Services &amp; Academic Portal
+        </div>
+
+        <div class="brand-mark">
+          SWINBURNE<br>
+          UNIVERSITY OF TECHNOLOGY
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- ===================================================
+         LOGIN AREA
+         =================================================== -->
+
+    <main class="login-main">
+
+      <section class="login-container">
+
+        <img
+          class="mobile-logo"
+          src="swinburne-sidebar-final.png"
+          alt="Swinburne University of Technology"
+        >
+
+        <div class="login-eyebrow">
+          Student access
+        </div>
+
+        <h2 class="login-title">
+          Sign in to your portal
+        </h2>
+
+        <p class="login-subtitle">
+          Enter your student credentials to continue to
+          the Swinburne Vietnam Student Portal.
+        </p>
+
+
+        <form
+          class="login-form"
+          id="loginForm"
+          novalidate
+        >
+
+          <!-- STUDENT ID -->
+
+          <div class="field">
+
+            <label
+              class="field-label"
+              for="studentId"
+            >
+              Student ID
+            </label>
+
+            <div class="input-wrap">
+
+              <svg
+                class="input-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="M7 9h4M7 13h7"></path>
+              </svg>
+
+              <input
+                class="login-input"
+                id="studentId"
+                name="studentId"
+                type="text"
+                inputmode="text"
+                autocomplete="username"
+                placeholder="Enter your student ID"
+                value=""
+                spellcheck="false"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="field">
+
+            <label
+              class="field-label"
+              for="password"
+            >
+              Password
+            </label>
+
+            <div class="input-wrap">
+
+              <svg
+                class="input-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+                <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+              </svg>
+
+              <input
+                class="login-input"
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                required
+              >
+
+              <button
+                class="password-toggle"
+                id="passwordToggle"
+                type="button"
+                aria-label="Show password"
+              >
+                <svg
+                  id="eyeIcon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+                  <circle cx="12" cy="12" r="2.5"></circle>
+                </svg>
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- META -->
+
+          <div class="form-meta">
+
+            <label class="remember">
+              <input
+                type="checkbox"
+                id="remember"
+              >
+              <span>Remember me</span>
+            </label>
+
+            <button
+              type="button"
+              class="help-link"
+              id="helpButton"
+            >
+              Need help?
+            </button>
+
+          </div>
+
+
+          <!-- BUTTON -->
+
+          <button
+            class="sign-in-button"
+            id="signInButton"
+            type="submit"
+          >
+            <span id="buttonText">
+              Sign in
+            </span>
+
+            <svg
+              class="button-arrow"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </button>
+
+
+          <!-- ERROR -->
+
+          <div
+            class="login-error"
+            id="loginError"
+            role="alert"
+          ></div>
+
+        </form>
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+          <svg
+            class="security-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+          </svg>
+
+          <span>
+            For security, never share your password with anyone.
+          </span>
+
+        </div>
+
+
+        <div class="login-footer">
+          Coursework prototype · Swinburne Vietnam Student Portal
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const studentId = document.getElementById("studentId");
+    const password = document.getElementById("password");
+    const errorBox = document.getElementById("loginError");
+    const button = document.getElementById("signInButton");
+    const buttonText = document.getElementById("buttonText");
+
+    const passwordToggle =
+      document.getElementById("passwordToggle");
+
+    const eyeIcon =
+      document.getElementById("eyeIcon");
+
+    const helpButton =
+      document.getElementById("helpButton");
+
+
+    /* =====================================================
+       SHOW / HIDE PASSWORD
+       ===================================================== */
+
+    passwordToggle.addEventListener("click", function () {
+
+      const isPassword =
+        password.type === "password";
+
+      password.type =
+        isPassword ? "text" : "password";
+
+      passwordToggle.setAttribute(
+        "aria-label",
+        isPassword
+          ? "Hide password"
+          : "Show password"
+      );
+
+    });
+
+
+    /* =====================================================
+       CLEAR ERROR WHILE TYPING
+       ===================================================== */
+
+    studentId.addEventListener("input", clearError);
+    password.addEventListener("input", clearError);
+
+    function clearError() {
+      errorBox.classList.remove("show");
+      errorBox.textContent = "";
+    }
+
+
+    /* =====================================================
+       LOGIN
+       ===================================================== */
+
+    form.addEventListener("submit", function (event) {
+
+      event.preventDefault();
+
+      clearError();
+
+      const id =
+        studentId.value.trim();
+
+      const pw =
+        password.value;
+
+      if (!id || !pw) {
+
+        showError(
+          "Please enter your Student ID and password."
+        );
+
+        if (!id) {
+          studentId.focus();
+        } else {
+          password.focus();
+        }
+
+        return;
+      }
+
+
+      button.disabled = true;
+      buttonText.textContent = "Signing in…";
+
+
+      setTimeout(function () {
+
+        if (
+          id === "SWH00779" &&
+          pw === "Swinburne@2026"
+        ) {
+
+          localStorage.setItem("auth", "1");
+
+          if (
+            document.getElementById("remember").checked
+          ) {
+            localStorage.setItem(
+              "rememberLogin",
+              "1"
+            );
+          }
+
+          window.location.href =
+            "dashboard.html";
+
+        } else {
+
+          button.disabled = false;
+          buttonText.textContent = "Sign in";
+
+          showError(
+            "The Student ID or password you entered is incorrect. Please check your details and try again."
+          );
+
+          password.focus();
+        }
+
+      }, 450);
+
+    });
+
+
+    /* =====================================================
+       HELP
+       ===================================================== */
+
+    helpButton.addEventListener("click", function () {
+
+      showError(
+        "If you are having trouble signing in, please check your Student ID and password or contact Student Services."
+      );
+
+    });
+
+
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
+    function showError(message) {
+
+      errorBox.textContent = message;
+      errorBox.classList.add("show");
+
+    }
+
+
+    /* =====================================================
+       ENTER KEY
+       ===================================================== */
+
+    document.addEventListener("keydown", function (event) {
+
+      if (
+        event.key === "Enter" &&
+        document.activeElement !== helpButton
+      ) {
+        form.requestSubmit();
+      }
+
+    });
+  </script>
+
+</body>
+</html>
