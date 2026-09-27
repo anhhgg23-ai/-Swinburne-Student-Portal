@@ -1,932 +1,533 @@
 /* =========================================================
    SWINBURNE STUDENT PORTAL
-   GLOBAL APP STYLES
+   GLOBAL UI
    ========================================================= */
+
+:root {
+  --sw-red: #e31b23;
+  --sw-red-dark: #bd1017;
+  --ink: #171717;
+  --muted: #6b7280;
+  --line: #e7e8eb;
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --sidebar: #111214;
+  --sidebar-soft: #1c1d20;
+  --success: #147a4b;
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
+  --radius: 16px;
+}
 
 * {
   box-sizing: border-box;
 }
 
-:root {
-  --sw-red: #e31b23;
-  --sw-red-dark: #c9141b;
-  --sw-black: #171717;
-  --sw-black-2: #222222;
-
-  --navy: #303646;
-  --navy-dark: #252b39;
-
-  --bg: #f5f5f3;
-  --white: #ffffff;
-  --text: #171717;
-  --muted: #737373;
-  --muted-light: #9a9a9a;
-
-  --border: #e6e6e6;
-  --radius: 14px;
-
-  --shadow: 0 6px 24px rgba(0, 0, 0, 0.045);
-}
-
-/* =========================================================
-   BASE
-   ========================================================= */
-
 html {
   scroll-behavior: smooth;
 }
 
-body {
+body.app {
   margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
   font-family:
     Inter,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
-    Roboto,
-    Arial,
     sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text);
-  background: var(--bg);
 }
 
-a {
-  color: inherit;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* =========================================================
-   PUBLIC HEADER
-   ========================================================= */
-
-header {
-  min-height: 76px;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 0 6%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-header b,
-body > section > b {
-  font-size: 20px;
-  letter-spacing: 0.16em;
-}
-
-header small,
-body > section > small {
-  display: block;
-  font-weight: 800;
-  margin-top: 25px;
-}
-
-header a {
-  margin-left: auto;
-  background: var(--sw-black);
-  color: white;
-  padding: 12px 18px;
-  border-radius: 9px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: 0.2s ease;
-}
-
-header a:hover {
-  background: var(--sw-red);
-}
-
-/* =========================================================
-   LANDING PAGE
-   ========================================================= */
-
-main {
-  max-width: 1150px;
-  margin: auto;
-  padding: 90px 25px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 60px;
-  align-items: center;
-}
-
-label {
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--muted);
-  font-weight: 800;
-}
-
-h1 {
-  font-size: 60px;
-  line-height: 1;
-  margin: 18px 0;
-  letter-spacing: -0.04em;
-}
-
-h2,
-h3,
-h4 {
-  letter-spacing: -0.02em;
-}
-
-p {
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.red {
-  background: var(--sw-red);
-  color: white;
-  border: 0;
-  border-radius: 9px;
-  padding: 13px 18px;
-  display: inline-block;
-  text-decoration: none;
-  font-weight: 800;
-  transition: 0.2s ease;
-}
-
-.red:hover {
-  background: var(--sw-red-dark);
-  transform: translateY(-1px);
-}
-
-.hero {
-  background: var(--sw-black);
-  color: white;
-  border-radius: 22px;
-  padding: 35px;
-  font-size: 12px;
-  box-shadow: var(--shadow);
-}
-
-.hero strong {
-  font-size: 70px;
-}
-
-.hero hr {
-  border: 0;
-  border-top: 1px solid #444;
-  margin: 25px 0;
-}
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-.login {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 25px;
-
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(227, 27, 35, 0.16),
-      transparent 35%
-    ),
-    var(--sw-black);
-
-  color: white;
-}
-
-.login section {
-  width: min(420px, 92%);
-}
-
-.card {
-  margin-top: 25px;
-  background: white;
-  color: var(--text);
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-}
-
-.card h1 {
-  font-size: 36px;
-}
-
-.card input {
-  display: block;
-  width: 100%;
-  padding: 13px 14px;
-  margin: 12px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  outline: none;
-}
-
-.card input:focus {
-  border-color: var(--sw-red);
-  box-shadow: 0 0 0 3px rgba(227, 27, 35, 0.1);
-}
-
-.card button {
-  width: 100%;
-}
-
-.card p {
-  color: #c00000;
-  font-size: 12px;
-}
-
-/* =========================================================
-   APP
-   ========================================================= */
-
-body.app {
-  background: var(--bg);
-}
 
 /* =========================================================
    SIDEBAR
    ========================================================= */
 
-aside {
+body.app aside {
   position: fixed;
   inset: 0 auto 0 0;
-
-  width: 240px;
-  height: 100vh;
-
-  overflow-y: auto;
-
-  padding: 22px 15px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #151515 0%,
-      #101010 100%
-    );
-
+  width: 255px;
+  padding: 30px 18px 22px;
+  background: var(--sidebar);
   color: white;
-
-  z-index: 100;
-
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  border-right: 1px solid rgba(255,255,255,.06);
 }
 
-/* Ẩn logo chữ cũ */
-aside b,
-aside small {
-  display: none !important;
-}
-
-/* =========================================================
-   SWINBURNE LOGO
-   ========================================================= */
-
-aside::before {
+body.app aside::before {
   content: "";
-
   display: block;
-
   width: 100%;
   max-width: 205px;
-
-  height: 100px;
-
-  margin: 0 auto 25px;
-
-  background-image:
-    url("./swinburne-sidebar-final.png");
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  height: 82px;
+  margin: 0 auto 22px;
+  background: url("./swinburne-sidebar-final.png") center / contain no-repeat;
 }
 
-/* =========================================================
-   SIDEBAR NAVIGATION
-   ========================================================= */
+body.app aside > b,
+body.app aside > small {
+  display: none;
+}
 
-aside a,
-aside button {
-  display: block;
-
-  width: 100%;
-
-  padding: 12px 13px;
+body.app aside a {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 14px;
   margin: 3px 0;
-
-  border: 0;
-  border-radius: 9px;
-
-  background: transparent;
-
-  color: #a8a8a8;
-
-  text-align: left;
+  border-radius: 10px;
+  color: #b9bbc0;
   text-decoration: none;
-
   font-size: 14px;
-  font-weight: 500;
-
-  transition:
-    background 0.18s ease,
-    color 0.18s ease,
-    transform 0.18s ease;
+  font-weight: 600;
+  transition: .18s ease;
 }
 
-aside a:hover,
-aside button:hover {
-  background: #292929;
+body.app aside a:hover {
   color: white;
+  background: var(--sidebar-soft);
+  transform: translateX(2px);
 }
 
-aside a:active,
-aside button:active {
-  transform: scale(0.98);
+body.app aside a[href$="dashboard.html"] {
+  position: relative;
 }
+
+body.app aside a[href$="dashboard.html"]::before,
+body.app aside a[href$="results.html"]::before,
+body.app aside a[href$="courses.html"]::before,
+body.app aside a[href$="timetable.html"]::before,
+body.app aside a[href$="graduation.html"]::before,
+body.app aside a[href$="fees.html"]::before,
+body.app aside a[href$="profile.html"]::before,
+body.app aside a[href$="support.html"]::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-right: 12px;
+  border-radius: 50%;
+  background: #686a70;
+}
+
+body.app aside a:hover::before {
+  background: var(--sw-red);
+}
+
+body.app aside button {
+  margin-top: auto;
+  min-height: 44px;
+  border: 1px solid #34363a;
+  border-radius: 10px;
+  background: transparent;
+  color: #c8c9cc;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+body.app aside button:hover {
+  background: #242529;
+  color: white;
+  border-color: #4a4c51;
+}
+
 
 /* =========================================================
-   APPLICATION CONTENT
+   MAIN CONTENT
    ========================================================= */
 
-article {
-  margin-left: 240px;
-
-  padding: 38px 42px 0;
-
-  max-width: 1280px;
-
+body.app article {
+  margin-left: 255px;
   min-height: 100vh;
+  padding: 46px 52px 70px;
+  max-width: 1500px;
 }
 
-article h1 {
-  font-size: 38px;
-  line-height: 1.1;
-
+body.app article > h1 {
   margin: 0 0 8px;
-
-  letter-spacing: -0.035em;
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -.7px;
 }
 
-article > p {
-  margin-top: 0;
+body.app article > h1::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 4px;
+  margin-top: 13px;
+  border-radius: 5px;
+  background: var(--sw-red);
 }
 
-article > h2 {
-  margin-top: 32px;
-}
 
 /* =========================================================
-   STAT CARDS
+   CARDS
    ========================================================= */
 
-.cards {
+body.app .cards {
   display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 32px 0 24px;
 }
 
-.cards > div,
-.panel {
-  background: var(--white);
-
-  border: 1px solid var(--border);
-
-  border-radius: var(--radius);
-
+body.app .cards > div {
+  position: relative;
+  min-height: 145px;
   padding: 22px;
-
-  margin-top: 15px;
-
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
-}
-
-.cards > div {
-  min-height: 125px;
-}
-
-.cards strong {
-  display: block;
-
-  font-size: 28px;
-  line-height: 1.1;
-
-  margin-top: 8px;
-
-  letter-spacing: -0.03em;
-}
-
-.cards small {
   color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
 }
+
+body.app .cards > div::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  width: 34px;
+  height: 3px;
+  background: var(--sw-red);
+}
+
+body.app .cards strong {
+  display: block;
+  margin-top: 18px;
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -.8px;
+  text-transform: none;
+}
+
 
 /* =========================================================
    PANELS
    ========================================================= */
 
-.panel h2,
-.panel h3 {
-  margin-top: 0;
+body.app .panel {
+  margin: 18px 0;
+  padding: 26px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-.panel p {
-  margin-bottom: 8px;
+body.app .panel h2 {
+  margin: 0 0 20px;
+  font-size: 19px;
+  letter-spacing: -.2px;
 }
 
-/* =========================================================
-   FORMS
-   ========================================================= */
-
-.panel input,
-.panel textarea,
-.panel select {
-  width: 100%;
-
-  padding: 12px 13px;
-
-  margin: 5px 0 12px;
-
-  border: 1px solid #ddd;
-
-  border-radius: 8px;
-
-  background: white;
-
-  outline: none;
+body.app .panel p {
+  color: #45484e;
+  line-height: 1.65;
 }
 
-.panel input:focus,
-.panel textarea:focus,
-.panel select:focus {
-  border-color: var(--sw-red);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(227, 27, 35, 0.08);
+body.app .panel strong {
+  color: var(--ink);
 }
 
-.panel textarea {
-  min-height: 120px;
-  resize: vertical;
-}
 
 /* =========================================================
    TABLES
    ========================================================= */
 
-table {
+body.app table {
   width: 100%;
   border-collapse: collapse;
   background: white;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-th {
-  background: #fafafa;
-
-  color: #666;
-
-  font-size: 11px;
-
-  text-transform: uppercase;
-
-  letter-spacing: 0.08em;
-
-  font-weight: 800;
-}
-
-td,
-th {
-  padding: 14px 13px;
-
-  border-bottom: 1px solid #eee;
-
+body.app th {
+  padding: 14px 15px;
+  background: #f1f2f4;
+  color: #4f5359;
+  font-size: 12px;
   text-align: left;
+  text-transform: uppercase;
+  letter-spacing: .5px;
 }
 
-tbody tr:hover {
+body.app td {
+  padding: 15px;
+  border-top: 1px solid var(--line);
+  color: #303238;
+  font-size: 14px;
+}
+
+body.app tr:hover td {
   background: #fafafa;
 }
+
 
 /* =========================================================
-   PROGRESS
+   INPUTS / SEARCH
    ========================================================= */
 
-.bar {
+body.app input,
+body.app select,
+body.app textarea {
   width: 100%;
-
-  height: 9px;
-
-  background: #e9e9e9;
-
-  border-radius: 999px;
-
-  overflow: hidden;
+  min-height: 44px;
+  padding: 11px 13px;
+  border: 1px solid #d9dadd;
+  border-radius: 9px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  outline: none;
 }
 
-.bar i {
-  display: block;
-
-  width: 75%;
-  height: 100%;
-
-  background: var(--sw-red);
-
-  border-radius: 999px;
+body.app textarea {
+  min-height: 130px;
+  resize: vertical;
 }
+
+body.app input:focus,
+body.app select:focus,
+body.app textarea:focus {
+  border-color: var(--sw-red);
+  box-shadow: 0 0 0 3px rgba(227,27,35,.08);
+}
+
+body.app button {
+  font: inherit;
+}
+
 
 /* =========================================================
-   FOOTER
+   GRADUATION PROGRESS
+   ========================================================= */
+
+body.app .bar {
+  width: 100%;
+  height: 12px;
+  margin: 20px 0 26px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e8e9ec;
+}
+
+body.app .bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--sw-red);
+  transition: width .5s ease;
+}
+
+
+/* =========================================================
+   PORTAL FOOTER
    ========================================================= */
 
 .portal-footer {
-  margin-left: 240px;
-
-  margin-top: 70px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #303646 0%,
-      #292f3e 100%
-    );
-
-  color: white;
-
-  padding: 55px 42px 25px;
+  margin-left: 255px;
+  background: #101113;
+  color: #d7d8da;
+  border-top: 1px solid #292a2d;
 }
 
 .portal-footer-inner {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
+  padding: 55px 52px 22px;
 }
-
-/* Footer top */
 
 .portal-footer-top {
   display: grid;
-
-  grid-template-columns:
-    1.35fr
-    repeat(3, 1fr);
-
-  gap: 42px;
-
-  padding-bottom: 42px;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
+  gap: 45px;
+  padding-bottom: 48px;
 }
 
 .portal-footer-brand {
-  padding-right: 25px;
+  max-width: 330px;
 }
 
 .portal-footer-logo {
-  width: 190px;
+  width: 220px;
   max-width: 100%;
-
+  height: 82px;
+  object-fit: contain;
+  object-position: left center;
   margin-bottom: 18px;
 }
 
 .portal-footer-brand h3 {
   margin: 0 0 8px;
-
-  font-size: 18px;
-
   color: white;
+  font-size: 19px;
 }
 
 .portal-footer-brand p {
-  max-width: 330px;
-
-  margin: 0;
-
-  color: #b9c0ca;
+  margin: 7px 0;
+  color: #9fa2a7;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-.portal-footer h4 {
-  margin: 0 0 15px;
-
+.portal-footer-top h4 {
+  margin: 7px 0 18px;
   color: white;
-
   font-size: 14px;
-
-  font-weight: 800;
 }
 
-.portal-footer a {
+.portal-footer-top a {
   display: block;
-
-  margin: 8px 0;
-
-  color: #b8c0ca;
-
+  margin: 10px 0;
+  color: #aeb1b5;
   text-decoration: none;
-
-  transition: color 0.18s ease;
+  font-size: 13px;
 }
 
-.portal-footer a:hover {
+.portal-footer-top a:hover {
   color: white;
 }
-
-/* =========================================================
-   CAMPUS INFORMATION
-   ========================================================= */
 
 .portal-footer-campus {
-  border-top:
-    1px solid
-    rgba(255, 255, 255, 0.16);
-
-  padding: 32px 0;
+  padding: 30px 0;
+  border-top: 1px solid #2b2c30;
+  border-bottom: 1px solid #2b2c30;
 }
 
 .portal-footer-campus-title {
-  margin-bottom: 20px;
-
+  margin-bottom: 25px;
   color: white;
-
-  font-size: 18px;
-
-  font-weight: 800;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .portal-footer-campus-grid {
   display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
-  gap: 28px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
 }
 
-.portal-footer-campus h4 {
-  margin-bottom: 8px;
-}
-
-.portal-footer-campus p {
-  margin: 0;
-
-  color: #b0b8c3;
-
+.portal-footer-campus-grid h4 {
+  margin: 0 0 9px;
+  color: white;
   font-size: 13px;
-
-  line-height: 1.65;
 }
 
-/* =========================================================
-   FOOTER BOTTOM
-   ========================================================= */
+.portal-footer-campus-grid p {
+  margin: 5px 0;
+  color: #9fa2a7;
+  font-size: 12px;
+  line-height: 1.6;
+}
 
 .portal-footer-bottom {
   display: flex;
-
-  align-items: center;
-
   justify-content: space-between;
-
   gap: 20px;
-
-  border-top:
-    1px solid
-    rgba(255, 255, 255, 0.16);
-
   padding-top: 20px;
-
-  color: #929ba7;
-
-  font-size: 12px;
+  color: #7f8287;
+  font-size: 11px;
 }
+
 
 /* =========================================================
-   OLD FOOTER
+   MOBILE / TABLET
    ========================================================= */
 
-footer:not(.portal-footer) {
-  text-align: center;
+@media (max-width: 1050px) {
 
-  color: #888;
+  body.app aside {
+    width: 220px;
+  }
 
-  padding: 30px;
-}
+  body.app article,
+  .portal-footer {
+    margin-left: 220px;
+  }
 
-/* =========================================================
-   SEARCH
-   ========================================================= */
+  body.app article {
+    padding: 38px 30px 55px;
+  }
 
-#q {
-  width: 100%;
+  .portal-footer-inner {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 
-  max-width: 420px;
-
-  padding: 12px 14px;
-
-  border: 1px solid #ddd;
-
-  border-radius: 9px;
-
-  background: white;
-
-  outline: none;
-}
-
-#q:focus {
-  border-color: var(--sw-red);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(227, 27, 35, 0.08);
-}
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1000px) {
-
-  .cards {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+  body.app .cards {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .portal-footer-top {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .portal-footer-campus-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* =========================================================
-   SMALL TABLET / IPAD
-   ========================================================= */
 
 @media (max-width: 700px) {
 
-  header {
-    padding: 0 20px;
+  body.app aside {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
   }
 
-  main {
-    grid-template-columns: 1fr;
-
-    padding: 55px 20px;
-
-    gap: 35px;
+  body.app aside::before {
+    margin-bottom: 15px;
   }
 
-  h1 {
-    font-size: 44px;
+  body.app aside a {
+    min-height: 40px;
   }
 
-  .hero strong {
-    font-size: 55px;
-  }
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 650px) {
-
-  aside {
-    width: 185px;
-
-    padding:
-      20px
-      12px;
+  body.app aside button {
+    margin-top: 15px;
   }
 
-  aside::before {
-    max-width: 150px;
-
-    height: 76px;
-
-    margin-bottom: 20px;
-  }
-
-  aside a,
-  aside button {
-    padding:
-      11px
-      10px;
-
-    font-size: 13px;
-  }
-
-  article {
-    margin-left: 185px;
-
-    padding:
-      25px
-      18px
-      0;
-  }
-
-  article h1 {
-    font-size: 30px;
-  }
-
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
-  .cards strong {
-    font-size: 23px;
-  }
-
-  .panel {
-    overflow-x: auto;
-  }
-
-  table {
-    min-width: 650px;
-  }
-
+  body.app article,
   .portal-footer {
-    margin-left: 185px;
-
-    padding:
-      42px
-      20px
-      20px;
+    margin-left: 0;
   }
 
-  .portal-footer-top {
+  body.app article {
+    padding: 30px 18px 45px;
+  }
+
+  body.app article > h1 {
+    font-size: 27px;
+  }
+
+  body.app .cards {
     grid-template-columns: 1fr;
-
-    gap: 30px;
   }
 
+  .portal-footer-inner {
+    padding: 40px 20px 20px;
+  }
+
+  .portal-footer-top,
   .portal-footer-campus-grid {
     grid-template-columns: 1fr;
   }
 
   .portal-footer-bottom {
     flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 8px;
-  }
-}
-
-/* =========================================================
-   VERY SMALL PHONE
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-  aside {
-    width: 165px;
-  }
-
-  aside::before {
-    max-width: 135px;
-
-    height: 68px;
-  }
-
-  article {
-    margin-left: 165px;
-
-    padding:
-      22px
-      14px
-      0;
-  }
-
-  article h1 {
-    font-size: 27px;
-  }
-
-  .cards > div,
-  .panel {
-    padding: 18px;
-  }
-
-  .portal-footer {
-    margin-left: 165px;
   }
 }
