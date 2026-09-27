@@ -1600,3 +1600,157 @@ img {
     flex-direction: column;
   }
 }
+/* =========================================================
+   FINAL HARD LAYOUT FIX
+   ========================================================= */
+
+html,
+body {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+}
+
+body.app {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden !important;
+}
+
+/* SIDEBAR */
+body.app > .portal-sidebar {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: var(--sidebar) !important;
+  z-index: 9999 !important;
+}
+
+/* MAIN */
+body.app > .portal-main {
+  position: relative !important;
+
+  display: block !important;
+
+  margin-left: var(--sidebar) !important;
+
+  width: calc(100% - var(--sidebar)) !important;
+
+  max-width: calc(100% - var(--sidebar)) !important;
+
+  min-width: 0 !important;
+
+  padding: 0 !important;
+
+  box-sizing: border-box !important;
+
+  overflow: visible !important;
+}
+
+/* CONTENT */
+body.app > .portal-main > .portal-content {
+  display: block !important;
+
+  width: 100% !important;
+
+  max-width: none !important;
+
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  box-sizing: border-box !important;
+
+  padding: 48px 52px 60px !important;
+}
+
+/* PREVENT CHILDREN FROM PUSHING MAIN LEFT */
+body.app .portal-topbar,
+body.app .portal-hero,
+body.app .portal-section,
+body.app .portal-grid,
+body.app .portal-card {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* FOOTER */
+body.app > .portal-footer {
+  width: calc(100% - var(--sidebar)) !important;
+
+  max-width: calc(100% - var(--sidebar)) !important;
+
+  margin-left: var(--sidebar) !important;
+
+  box-sizing: border-box !important;
+}
+
+/* =========================================================
+   IPAD
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  body.app > .portal-main {
+    width: calc(100% - var(--sidebar)) !important;
+    max-width: calc(100% - var(--sidebar)) !important;
+  }
+
+  body.app > .portal-main > .portal-content {
+    padding: 38px 32px 50px !important;
+  }
+
+  body.app > .portal-footer {
+    width: calc(100% - var(--sidebar)) !important;
+    max-width: calc(100% - var(--sidebar)) !important;
+    margin-left: var(--sidebar) !important;
+  }
+}
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  body.app > .portal-main {
+    width: calc(100% - var(--sidebar)) !important;
+    max-width: calc(100% - var(--sidebar)) !important;
+  }
+
+  body.app > .portal-main > .portal-content {
+    padding: 30px 24px 45px !important;
+  }
+
+  body.app > .portal-footer {
+    width: calc(100% - var(--sidebar)) !important;
+    max-width: calc(100% - var(--sidebar)) !important;
+    margin-left: var(--sidebar) !important;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 620px) {
+
+  body.app > .portal-main {
+    width: calc(100% - var(--sidebar)) !important;
+    max-width: calc(100% - var(--sidebar)) !important;
+  }
+
+  body.app > .portal-main > .portal-content {
+    padding: 24px 16px 40px !important;
+  }
+
+  body.app > .portal-footer {
+    width: calc(100% - var(--sidebar)) !important;
+    max-width: calc(100% - var(--sidebar)) !important;
+    margin-left: var(--sidebar) !important;
+  }
+}
