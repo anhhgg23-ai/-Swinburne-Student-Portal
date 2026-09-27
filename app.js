@@ -1889,148 +1889,171 @@
      ======================================================= */
 
   function renderTimetable() {
+  const content = getContent();
 
-    const content =
-      getContent();
+  const schedule = [
+    {
+      day: "Monday",
+      short: "MON",
+      time: "08:00 – 10:00",
+      start: 8,
+      end: 10,
+      code: "MKT30016",
+      name: "Marketing Strategy and Planning",
+      room: "Room A201"
+    },
+    {
+      day: "Tuesday",
+      short: "TUE",
+      time: "10:00 – 12:00",
+      start: 10,
+      end: 12,
+      code: "MGT30005",
+      name: "Strategic Planning",
+      room: "Room B204"
+    },
+    {
+      day: "Wednesday",
+      short: "WED",
+      time: "13:00 – 15:00",
+      start: 13,
+      end: 15,
+      code: "INF30015",
+      name: "Knowledge Management and Analytics",
+      room: "Room C102"
+    },
+    {
+      day: "Thursday",
+      short: "THU",
+      time: "09:00 – 11:00",
+      start: 9,
+      end: 11,
+      code: "PRM30001",
+      name: "Project Management Essentials",
+      room: "Room A305"
+    },
+    {
+      day: "Friday",
+      short: "FRI",
+      time: "13:00 – 15:00",
+      start: 13,
+      end: 15,
+      code: "BUS30032",
+      name: "Business Consulting Project",
+      room: "Room B101"
+    }
+  ];
 
+  const hours = [
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00"
+  ];
 
-    renderTopbar(
-      "Timetable",
-      "Academic timetable and scheduled learning activities."
-    );
+  const dayColumns = schedule.map(item => {
+    const event = `
+      <div class="calendar-event">
+        <div class="calendar-event-time">${item.time}</div>
+        <div class="calendar-event-code">${item.code}</div>
+        <div class="calendar-event-name">${item.name}</div>
+        <div class="calendar-event-room">${item.room}</div>
+      </div>
+    `;
 
+    return `
+      <div class="calendar-day">
+        <div class="calendar-day-head">
+          <span>${item.short}</span>
+          <strong>${item.day}</strong>
+        </div>
 
-    const schedule = [
+        <div class="calendar-day-body">
+          ${event}
+        </div>
+      </div>
+    `;
+  }).join("");
 
-      [
-        "Monday",
-        "08:00 – 10:00",
-        "MKT30016",
-        "Marketing Strategy and Planning",
-        "Room A201"
-      ],
+  const hourLabels = hours.map(hour => `
+    <div class="calendar-hour">
+      <span>${hour}</span>
+    </div>
+  `).join("");
 
-      [
-        "Tuesday",
-        "10:00 – 12:00",
-        "MGT30005",
-        "Strategic Planning",
-        "Room B204"
-      ],
+  content.innerHTML = `
+    <div class="portal-topbar">
+      <div>
+        <div class="portal-eyebrow">SWINBURNE VIETNAM · STUDENT PORTAL</div>
+        <h1>Timetable</h1>
+        <p>Academic timetable and scheduled learning activities.</p>
+      </div>
 
-      [
-        "Wednesday",
-        "13:00 – 15:00",
-        "INF30015",
-        "Knowledge Management and Analytics",
-        "Room C102"
-      ],
+      <div class="portal-topbar-right">
+        <span class="portal-date">
+          ${new Date().toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+          })}
+        </span>
 
-      [
-        "Thursday",
-        "09:00 – 11:00",
-        "PRM30001",
-        "Project Management Essentials",
-        "Room A305"
-      ],
+        <div class="portal-avatar">XA</div>
+      </div>
+    </div>
 
-      [
-        "Friday",
-        "13:00 – 15:00",
-        "BUS30032",
-        "Business Consulting Project",
-        "Room B101"
-      ]
+    <section class="timetable-card">
 
-    ];
+      <div class="timetable-card-head">
+        <div>
+          <h2>Weekly timetable</h2>
+          <p>Current teaching schedule</p>
+        </div>
 
+        <div class="semester-badge">
+          Current semester
+        </div>
+      </div>
 
-    content.insertAdjacentHTML(
-      "beforeend",
-      `
+      <div class="calendar-wrap">
 
-        <section class="portal-section">
+        <div class="calendar-grid">
 
-          <div class="portal-card">
+          <div class="calendar-time-column">
 
-            ${cardHeader(
-              "Weekly timetable",
-              `<span class="portal-badge badge-green">
-                Current semester
-              </span>`
-            )}
+            <div class="calendar-corner"></div>
 
-
-            <div style="overflow-x:auto">
-
-              <table class="portal-table">
-
-                <thead>
-
-                  <tr>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Unit</th>
-                    <th>Activity</th>
-                    <th>Location</th>
-                  </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                  ${schedule.map(function (item) {
-
-                    return `
-
-                      <tr>
-
-                        <td>
-                          <strong>
-                            ${item[0]}
-                          </strong>
-                        </td>
-
-                        <td>
-                          ${item[1]}
-                        </td>
-
-                        <td>
-                          <strong>
-                            ${item[2]}
-                          </strong>
-                        </td>
-
-                        <td>
-                          ${item[3]}
-                        </td>
-
-                        <td>
-                          ${item[4]}
-                        </td>
-
-                      </tr>
-
-                    `;
-
-                  }).join("")}
-
-                </tbody>
-
-              </table>
-
+            <div class="calendar-hours">
+              ${hourLabels}
             </div>
 
           </div>
 
-        </section>
+          ${dayColumns}
 
-      `
-    );
+        </div>
 
-  }
+      </div>
 
+      <div class="timetable-footer">
+        <span>
+          <i></i>
+          Scheduled learning activity
+        </span>
+
+        <span>
+          5 classes this week
+        </span>
+      </div>
+
+    </section>
+  `;
+}
 
   /* =======================================================
      GRADUATION
