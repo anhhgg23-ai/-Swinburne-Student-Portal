@@ -14,7 +14,7 @@ if (!localStorage.auth) {
 
 
 /* =========================================================
-   ACADEMIC RESULTS SEARCH
+   ACADEMIC RESULTS
    ========================================================= */
 
 function draw() {
@@ -24,30 +24,36 @@ function draw() {
       .toLowerCase()
       .trim();
 
-  const t = document.getElementById("t");
+  const table =
+    document.getElementById("t");
 
-  if (!t || typeof R === "undefined") {
+  if (!table || typeof R === "undefined") {
     return;
   }
 
-  const rows = R.filter((x) =>
-    (x[0] + x[1]).toLowerCase().includes(q)
-  );
+  const rows =
+    R.filter((row) =>
+      (row[0] + " " + row[1])
+        .toLowerCase()
+        .includes(q)
+    );
 
-  t.innerHTML =
-    "<tr>" +
-      "<th>Code</th>" +
-      "<th>Unit</th>" +
-      "<th>Mark</th>" +
-      "<th>Grade</th>" +
-      "<th>GPA</th>" +
-    "</tr>" +
-
-    rows.map((x) =>
-      "<tr>" +
-      x.map((v) => `<td>${v}</td>`).join("") +
-      "</tr>"
-    ).join("");
+  table.innerHTML = `
+    <tr>
+      <th>Code</th>
+      <th>Unit</th>
+      <th>Mark</th>
+      <th>Grade</th>
+      <th>GPA</th>
+    </tr>
+    ${
+      rows.map((row) => `
+        <tr>
+          ${row.map((value) => `<td>${value}</td>`).join("")}
+        </tr>
+      `).join("")
+    }
+  `;
 }
 
 
@@ -67,12 +73,19 @@ function send() {
     return;
   }
 
+  if (!subject.value.trim() ||
+      !message.value.trim()) {
+    return;
+  }
+
   const tickets =
-    JSON.parse(localStorage.tickets || "[]");
+    JSON.parse(
+      localStorage.tickets || "[]"
+    );
 
   tickets.unshift({
-    s: subject.value,
-    m: message.value,
+    s: subject.value.trim(),
+    m: message.value.trim(),
     d: new Date().toLocaleString()
   });
 
@@ -89,7 +102,9 @@ function send() {
 function show() {
 
   const tickets =
-    JSON.parse(localStorage.tickets || "[]");
+    JSON.parse(
+      localStorage.tickets || "[]"
+    );
 
   const element =
     document.getElementById("tickets");
@@ -99,24 +114,28 @@ function show() {
   }
 
   element.innerHTML =
-    tickets.map((x) => `
+    tickets.map((ticket) => `
       <div class="panel">
-        <b>${x.s}</b>
-        <p>${x.m}</p>
-        <small>${x.d} · Open</small>
+        <b>${ticket.s}</b>
+        <p>${ticket.m}</p>
+        <small>
+          ${ticket.d} · Open
+        </small>
       </div>
     `).join("");
 }
 
 
 /* =========================================================
-   REMOVE OLD ACADEMIC PROJECT FOOTER
+   REMOVE OLD FOOTER
    ========================================================= */
 
 function removeOldFooter() {
 
   document
-    .querySelectorAll("body footer:not(.portal-footer)")
+    .querySelectorAll(
+      "body footer:not(.portal-footer)"
+    )
     .forEach((footer) => {
       footer.remove();
     });
@@ -124,7 +143,7 @@ function removeOldFooter() {
 
 
 /* =========================================================
-   PORTAL FOOTER
+   SWINBURNE PORTAL FOOTER
    ========================================================= */
 
 function createPortalFooter() {
@@ -133,11 +152,26 @@ function createPortalFooter() {
     return;
   }
 
+  /*
+   * Remove the old
+   * "Academic Project · Not an official university system."
+   * footer from existing pages.
+   */
+
   removeOldFooter();
 
-  if (document.querySelector(".portal-footer")) {
+  /*
+   * Prevent duplicates.
+   */
+
+  if (
+    document.querySelector(
+      ".portal-footer"
+    )
+  ) {
     return;
   }
+
 
   const footer =
     document.createElement("footer");
@@ -145,11 +179,20 @@ function createPortalFooter() {
   footer.className =
     "portal-footer";
 
+
   footer.innerHTML = `
 
     <div class="portal-footer-inner">
 
+
+      <!-- =================================================
+           TOP FOOTER
+           ================================================= -->
+
       <div class="portal-footer-top">
+
+
+        <!-- BRAND -->
 
         <div class="portal-footer-brand">
 
@@ -175,6 +218,8 @@ function createPortalFooter() {
         </div>
 
 
+        <!-- SWINBURNE VIETNAM -->
+
         <div>
 
           <h4>
@@ -182,7 +227,7 @@ function createPortalFooter() {
           </h4>
 
           <a
-            href={"https://" + "swinburne-vn.edu.vn/"}
+            href="https://swinburne-vn.edu.vn/"
             target="_blank"
             rel="noopener"
           >
@@ -190,7 +235,7 @@ function createPortalFooter() {
           </a>
 
           <a
-            href={"https://" + "swinburne-vn.edu.vn/sinh-vien-hien-tai/"}
+            href="https://swinburne-vn.edu.vn/sinh-vien-hien-tai/"
             target="_blank"
             rel="noopener"
           >
@@ -198,7 +243,7 @@ function createPortalFooter() {
           </a>
 
           <a
-            href={"https://" + "swinburne-vn.edu.vn/"}
+            href="https://swinburne-vn.edu.vn/"
             target="_blank"
             rel="noopener"
           >
@@ -208,6 +253,8 @@ function createPortalFooter() {
         </div>
 
 
+        <!-- ADMISSIONS -->
+
         <div>
 
           <h4>
@@ -215,7 +262,7 @@ function createPortalFooter() {
           </h4>
 
           <a
-            href={"https://" + "swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"}
+            href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
             target="_blank"
             rel="noopener"
           >
@@ -223,7 +270,7 @@ function createPortalFooter() {
           </a>
 
           <a
-            href={"https://" + "swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"}
+            href="https://swinburne-vn.edu.vn/list-admission/thong-bao-tuyen-sinh/"
             target="_blank"
             rel="noopener"
           >
@@ -231,7 +278,7 @@ function createPortalFooter() {
           </a>
 
           <a
-            href={"https://" + "swinburne-vn.edu.vn/course/quan-tri-kinh-doanh/"}
+            href="https://swinburne-vn.edu.vn/course/quan-tri-kinh-doanh/"
             target="_blank"
             rel="noopener"
           >
@@ -240,6 +287,8 @@ function createPortalFooter() {
 
         </div>
 
+
+        <!-- STUDENT PORTAL -->
 
         <div>
 
@@ -264,6 +313,10 @@ function createPortalFooter() {
       </div>
 
 
+      <!-- =================================================
+           CAMPUS CONTACTS
+           ================================================= -->
+
       <div class="portal-footer-campus">
 
         <div class="portal-footer-campus-title">
@@ -272,6 +325,9 @@ function createPortalFooter() {
 
 
         <div class="portal-footer-campus-grid">
+
+
+          <!-- HANOI -->
 
           <div>
 
@@ -291,6 +347,8 @@ function createPortalFooter() {
 
           </div>
 
+
+          <!-- DA NANG -->
 
           <div>
 
@@ -313,6 +371,8 @@ function createPortalFooter() {
           </div>
 
 
+          <!-- HO CHI MINH -->
+
           <div>
 
             <h4>
@@ -332,6 +392,8 @@ function createPortalFooter() {
           </div>
 
 
+          <!-- CAN THO -->
+
           <div>
 
             <h4>
@@ -350,10 +412,15 @@ function createPortalFooter() {
 
           </div>
 
+
         </div>
 
       </div>
 
+
+      <!-- =================================================
+           BOTTOM
+           ================================================= -->
 
       <div class="portal-footer-bottom">
 
@@ -367,8 +434,10 @@ function createPortalFooter() {
 
       </div>
 
+
     </div>
   `;
+
 
   document.body.appendChild(footer);
 }
