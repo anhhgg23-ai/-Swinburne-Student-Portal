@@ -2,139 +2,79 @@
 <html lang="en">
 
 <head>
-
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
+<title>Graduation — Swinburne Student Portal</title>
 
-<title>Graduation — Student Portal</title>
-
-<link
-  rel="stylesheet"
-  href="styles.css"
->
-
-<link
-  rel="stylesheet"
-  href="app.css"
->
-
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
 </head>
 
-
 <body class="app">
-
 
 <aside>
 
   <b>SWINBURNE</b>
-
   <small>S</small>
 
+  <a href="dashboard.html">Dashboard</a>
+  <a href="results.html">Academic Results</a>
+  <a href="courses.html">Courses</a>
+  <a href="timetable.html">Timetable</a>
+  <a href="graduation.html">Graduation</a>
+  <a href="fees.html">Fees & Payments</a>
+  <a href="profile.html">Student Profile</a>
+  <a href="support.html">Support / Queries</a>
 
-  <a href="dashboard.html">
-    Dashboard
-  </a>
-
-  <a href="results.html">
-    Academic Results
-  </a>
-
-  <a href="courses.html">
-    Courses
-  </a>
-
-  <a href="timetable.html">
-    Timetable
-  </a>
-
-  <a href="graduation.html">
-    Graduation
-  </a>
-
-  <a href="fees.html">
-    Fees & Payments
-  </a>
-
-  <a href="profile.html">
-    Student Profile
-  </a>
-
-  <a href="support.html">
-    Support / Queries
-  </a>
-
-
-  <button
-    onclick="localStorage.clear();location='login.html'"
-  >
+  <button onclick="localStorage.clear();location='login.html'">
     Log out
   </button>
 
 </aside>
 
 
-
 <article>
 
-  <h1>
-    Graduation
-  </h1>
-
+  <h1>Graduation</h1>
 
   <div class="panel">
 
-    <h2 id="graduationStatus">
-      —
-    </h2>
-
+    <h2 id="graduationStatus">—</h2>
 
     <div class="bar">
-
       <i id="progressBar"></i>
-
     </div>
-
 
     <p>
       <strong>Graduation Status:</strong>
       <span id="status">—</span>
     </p>
 
-
     <p>
       <strong>Award:</strong>
       <span id="award">—</span>
     </p>
-
 
     <p>
       <strong>Classification:</strong>
       <span id="classification">—</span>
     </p>
 
-
     <p>
       <strong>GPA:</strong>
-      <span id="gpa">—</span>
-      / 4.00
+      <span id="gpa">—</span> / 4.00
     </p>
-
 
     <p>
       <strong>Credits Completed:</strong>
       <span id="credits">—</span>
     </p>
 
-
     <p>
       <strong>Units Completed:</strong>
       <span id="units">—</span>
     </p>
-
 
     <p>
       <strong>Program Progress:</strong>
@@ -146,69 +86,67 @@
 </article>
 
 
-
 <script src="data.js"></script>
-
 
 <script>
 
 document.getElementById(
-  'graduationStatus'
+  "graduationStatus"
 ).textContent =
-  S.progress + '% complete';
+  S.progress + "% complete";
 
 
 document.getElementById(
-  'progressBar'
+  "progressBar"
 ).style.width =
-  S.progress + '%';
+  S.progress + "%";
 
 
 document.getElementById(
-  'status'
+  "status"
 ).textContent =
   S.graduationStatus;
 
 
 document.getElementById(
-  'award'
+  "award"
 ).textContent =
   S.award;
 
 
 document.getElementById(
-  'classification'
+  "classification"
 ).textContent =
   S.classification;
 
 
 document.getElementById(
-  'gpa'
+  "gpa"
 ).textContent =
   CALCULATED_GPA.toFixed(2);
 
 
 document.getElementById(
-  'credits'
+  "credits"
 ).textContent =
   TOTAL_CREDITS +
-  ' / ' +
+  " / " +
   S.totalCredits +
-  ' CP';
+  " CP";
 
 
 document.getElementById(
-  'units'
+  "units"
 ).textContent =
   R.length +
-  ' / ' +
+  " / " +
   R.length;
 
 
 document.getElementById(
-  'progress'
+  "progress"
 ).textContent =
-  S.progress + '%';
+  S.progress + "%";
 
 </script>
 
