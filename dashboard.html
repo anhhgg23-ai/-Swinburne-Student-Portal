@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dashboard — Student Portal Project</title>
+
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="app.css">
 </head>
@@ -13,6 +14,7 @@
 <aside>
 <b>SWINBURNE</b>
 <small>S</small>
+
 <a href="dashboard.html">Dashboard</a>
 <a href="results.html">Academic Results</a>
 <a href="courses.html">Courses</a>
@@ -21,32 +23,115 @@
 <a href="fees.html">Fees & Payments</a>
 <a href="profile.html">Student Profile</a>
 <a href="support.html">Support / Queries</a>
-<button onclick="localStorage.clear();location='login.html'">Log out</button>
+
+<button onclick="localStorage.clear();location='login.html'">
+Log out
+</button>
 </aside>
 
 <article>
+
 <h1>Dashboard</h1>
 
 <div class="cards">
-<div>Current GPA<strong>3.70</strong></div>
-<div>Credits<strong>32 / 32</strong></div>
-<div>Progress<strong>100%</strong></div>
-<div>Fee balance<strong>0 ₫</strong></div>
+
+<div>
+Current GPA
+<strong id="gpa">—</strong>
+</div>
+
+<div>
+Credits
+<strong id="credits">—</strong>
+</div>
+
+<div>
+Progress
+<strong id="progress">—</strong>
+</div>
+
+<div>
+Fee balance
+<strong>0 ₫</strong>
+</div>
+
 </div>
 
 <div class="panel">
-<h2>Latest results</h2>
-<p>ACC10001 · 82 · HD</p>
-<p>MGT10001 · 76 · D</p>
-<p>MKT10001 · 71 · D</p>
+
+<h2>Student Overview</h2>
+
+<p>
+<strong id="studentName">—</strong>
+</p>
+
+<p>
+Student ID:
+<strong id="studentId">—</strong>
+</p>
+
+<p>
+Program:
+<strong>Bachelor of Business</strong>
+</p>
+
+<p>
+Classification:
+<strong id="classification">—</strong>
+</p>
+
 </div>
 
-<footer>Academic Project · Not an official university system.</footer>
+<div class="panel">
+
+<h2>Latest Academic Results</h2>
+
+<div id="latestResults"></div>
+
+</div>
+
+<footer>
+Academic Project · Not an official university system.
+</footer>
 
 </article>
 
 <script src="data.js"></script>
-<script src="app.js"></script>
+
+<script>
+
+document.getElementById('gpa').textContent =
+CALCULATED_GPA.toFixed(2);
+
+document.getElementById('credits').textContent =
+TOTAL_CREDITS + ' / ' + S.totalCredits + ' CP';
+
+document.getElementById('progress').textContent =
+S.progress + '%';
+
+document.getElementById('studentName').textContent =
+S.name;
+
+document.getElementById('studentId').textContent =
+S.id;
+
+document.getElementById('classification').textContent =
+S.classification;
+
+const latest =
+R.slice(-3).reverse();
+
+document.getElementById('latestResults').innerHTML =
+latest.map(row => `
+<p>
+<strong>${row[0]}</strong>
+ · ${row[1]}
+ · ${row[2]}
+ · ${row[3]}
+</p>
+`).join('');
+
+</script>
 
 </body>
 </html>
